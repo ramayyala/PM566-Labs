@@ -1,89 +1,120 @@
 ---
 title: "PM566-lab3"
-output: html_document
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    fig_height: 10
+    fig_width: 10
+    #code_folding: hide
 ---
----
-title: "PM566-lab3"
-output: html_document
----
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r data}
+# Reading the Data
+```{r message = FALSE}
 library(tidyverse)
-download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+if (!require(data.table)) {
+  install.packages("data.table")
+}
+if (!file.exists("met_all.gz")){
+  download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+}
 met <- data.table::fread("met_all.gz")
 ```
-```{r}
+
+# Check the dimensions
+```{r message = FALSE}
 dim(met)
+```
+# Check Header
+```{r message = FALSE}
 head(met)
+```
+# Check Footers
+```{r message = FALSE}
 tail(met)
+```
+## There are 2,377,343 rows and 30 columns in the met dataset.
+
+# Looking at the Variables 
+```{r message = FALSE}
 str(met)
 ```
+# Key Variables
 
-```{r}
+```{r message = FALSE}
 table(met$year)
 table(met$day)
 table(met$hour)
 ```
 
-```{r}
+# Looking at Continuous Variables 
+```{r message = FALSE}
 summary(met$temp)
 summary(met$elev)
+summary(met$wind.sp)
 ```
 
-```{r}
+# Updating NAs in elevation
+```{r message = FALSE}
 met[met$elev==9999.0] <- NA
 summary(met$elev)
 ```
 
-```{r}
-met <- met[temp>-40]
-met2 <- met[order(temp)]
-head(met2)
+The highest weather station is at `r max(met$elev,na.rm = TRUE)` ft.
+
+# Remove Observations that have Min Temperature of -40C
+```{r message = FALSE}
+met <- met[temp>-40][order(temp)]
+summary(met)
+```
+# Removed Temperatures colder than -15C, making the new dataset have a minimum temp of -3C. 
+```{r message = FALSE}
+met <- met[temp>-15][order(temp)]
+summary(met[, .(lat, lon, wind.sp, temp, elev)])
+```
+# Calculating Summary Statistics 
+```{r message = FALSE}
+met[elev==max(elev,na.rm=TRUE)][, summary(wind.sp)]
+met[elev==max(elev,na.rm=TRUE)][, summary(temp)]
+```
+# Correlations
+```{r message = FALSE}
+met[elev ==max(elev, na.rm=TRUE), .(
+  temp_wind= cor(temp, wind.sp, use ="complete"),
+  temp_day=cor(temp, wind.sp, use ="complete"),
+  temp_hour=cor(temp, wind.sp, use ="complete"),
+  wind_day=cor(temp, wind.sp, use ="complete"),
+  wind_hour=cor(temp, wind.sp, use ="complete")
+)]
 ```
 
-```{r}
-met <- met[temp>-15]
-met2 <- met[order(temp)]
-head(met2)
-```
-
-```{r}
-elev <- met[elev==max(elev)]
-summary(elev)
-```
-
-```{r}
-cor(elev$temp, elev$wind.sp, use="complete")
-cor(elev$temp, elev$hour, use="complete")
-cor(elev$wind.sp, elev$day, use="complete")
-cor(elev$wind.sp, elev$hour, use="complete")
-cor(elev$temp, elev$day, use="complete")
-```
-
-```{r}
+# Exploratory Graphs 
+```{r message = FALSE}
 hist(met$elev, breaks=100)
 ```
 
-```{r}
+```{r message = FALSE }
 hist(met$temp)
 ```
 
-```{r}
+```{r message = FALSE}
 hist(met$wind.sp)
 ```
 
-```{r}
+```{r message = FALSE}
 library(leaflet)
+elev <- met[elev==max(elev,na.rm=TRUE)]
 leaflet(elev) %>%
   addProviderTiles('OpenStreetMap') %>% 
   addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
 ```
 
-```{r}
+```{r message = FALSE}
 library(lubridate)
 elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
 summary(elev$date)
@@ -91,11 +122,11 @@ elev <- elev[order(date)]
 head(elev)
 ```
 
-```{r}
+```{r message = FALSE}
 plot(elev$date, elev$temp, type='l')
 ```
-
-```{r}
+## The temperature seems to drop around the end of August. 
+```{r message = FALSE}
 plot(elev$date, elev$wind.sp, type='l')
 ```
-
+## The Windspeed seems to spike around mid August and the end of August. 
