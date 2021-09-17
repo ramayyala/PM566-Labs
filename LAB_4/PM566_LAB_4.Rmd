@@ -2,12 +2,8 @@
 title: "PM566_LAB4"
 author: "Ram Ayyala"
 date: "9/17/2021"
-output: 
-  html_document:
-    toc: yes
-    toc_float: yes
-    fig_height: 10
-    fig_width: 10
+output: github_document
+always_allow_html:true
     #code_folding: hide
 ---
 
@@ -15,7 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 # Read in the Data
-```{r message = FALSE}
+```{r data-read, cache=TRUE}
+library(data.table)
 if (!file.exists("met_all.gz"))
   download.file(
     url = "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
@@ -29,37 +26,118 @@ met <- data.table::fread("met_all.gz")
 
 ##Remove Temperatures less than -17C
 ```{r message=FALSE}
-met <- met[temp>-17][order(temp)]
+met <- met[temp>=-17][order(temp)]
 summary(met)
 ```
 ##Make sure there are no missing data in the key variables coded as 9999, 999, etc
 ```{r message=FALSE}
+met[, range(temp)]
+met[, range(rh, na.rm=TRUE)]
+met[, range(wind.sp, na.rm=TRUE)]
+met[, range(vis.dist, na.rm=TRUE)]
+met[, range(dew.point, na.rm=TRUE)]
+met[, range(lat, na.rm=TRUE)]
+met[, range(lon, na.rm=TRUE)]
+met[, range(elev, na.rm=TRUE)]
 met[met$elev==9999.0] <- NA
 summary(met$elev)
 ```
 ##Generate a date variable
 ```{r message=FALSE}
 met$date<-as.Date(paste(met$year,met$month,met$day, sep="-"))
+summary(met)
 ```
-## Keep the observations of the first week of the month, which is week 32
+## Keep the observations of the first week of the month, which is week 31
 ```{r message=FALSE}
-met <-met[data.table::week(met$date)==32]
+met[, table(data.table::week(date))]
+met <-met[data.table::week(met$date)==31]
 ```
 ## Compute means 
 ```{r message=FALSE}
-met[elev ==max(elev, na.rm=TRUE), .(
-  temp=mean(met$temp, na.rm=TRUE),
-  rh=mean(met$rh, na.rm=TRUE),
-  wind.sp=mean(met$wind.sp, na.rm=TRUE),
-  vis.dist=mean(met$vis.dist, na.rm=TRUE),
-  dew.point=mean(met$dew.point, na.rm=TRUE),
-  lat=mean(met$lat, na.rm=TRUE),
-  lon=mean(met$lon, na.rm=TRUE)
-)]
-
+met_avg <- met[, .(
+  temp=mean(temp, na.rm=TRUE),
+  rh=mean(rh, na.rm=TRUE),
+  wind.sp=mean(wind.sp, na.rm=TRUE),
+  vis.dist=mean(vis.dist, na.rm=TRUE),
+  dew.point=mean(dew.point, na.rm=TRUE),
+  lat=mean(lat, na.rm=TRUE),
+  lon=mean(lon, na.rm=TRUE),
+  elev=mean(elev, n.rm=TRUE)
+), by = "USAFID"]
+met_avg
 ```
 ## Create region variable 
 ```{r}
+met_avg[lat >= 39.71 & lon <= -98.00, region := "Northwest"]
+met_avg[lat < 39.71 & lon <= -98.00, region := "Southwest"]
+met_avg[lat >= 39.71 & lon > -98.00, region := "Northeast"]
+met_avg[lat < 39.71 & lon > -98.00, region := "Southeast"]
+met_avg[, table(region, useNA ="always")]
+```
+## Create categorical Elevation variable 
+```{r}
+
+met_avg[, elev_cat := data.table::fifelse(elev > 252, "high", "low")]
+```
+
+# Examine the wind speed and dew point temperature by region using geom_violin
+```{r}
+library(tidyverse)
+met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= wind.sp, x=1)) + geom_violin() + facet_grid(~ region)
+met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= dew.point, x=1)) + geom_violin() + facet_grid(~ region)
+```
+
+## 4. Use geom_jitter with stat_smooth to examine the association between dew point temperature and wind speed by region
+```{r}
+met_avg[!is.na(dew.point) & !is.na(wind.sp)] %>%
+  ggplot() + 
+  geom_smooth(mapping = aes(x = dew.point, y = wind.sp, linetype = region))+
+  geom_jitter(mapping=aes(x=dew.point, y=wind.sp, color=region))
+
+
+
+```
+
+## 5. Use geom_bar to create barplots of the weather stations by elevation category coloured by region
+```{r}
+met_avg[!is.na(elev_cat)] %>%
+  ggplot() + 
+  geom_bar(mapping = aes(x = elev_cat, colour= region, fill = elev_cat), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "Elevation Categories of Weather Stations by Region") + 
+  labs(x = "Elevation Category", y = "Counts")
+```
+
+## 6. Use stat_summary to examine mean dew point and wind speed by region with standard deviation error bars
+```{r plot-stat_summ}
+ggplot(
+    met_avg[!is.na(wind.sp) & !is.na(dew.point)],
+    mapping = aes(x = region, y = wind.sp)) +
+    stat_summary(fun.data = "mean_sdl") + 
+    stat_summary(fun.data = "mean_sdl", geom="errorbar")
+```
+## 7.  Make a map showing the spatial trend in relative h in the US
+```{r}
+library(leaflet)
+
+temp.pal <- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg$rh)
+
+leaflet(met_avg) %>%
+  addProviderTiles('CartoDB.Positron') %>%
+  addCircles(
+    lat = ~lat, lng=~lon,
+                                                  # HERE IS OUR PAL!
+    label = ~paste0(round(rh,2), ' rh'), color = ~ temp.pal(rh),
+    opacity = 1, fillOpacity = 1, radius = 500
+    ) %>%
+  # And a pretty legend
+  addLegend('bottomleft', pal=temp.pal, values=met_avg$rh,
+          title='Temperature, C', opacity=1)
+```
+
+#8. Use a ggplot extension
+```{r}
+library(gganimate)
+library(tidyverse)
+p<-met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= wind.sp, x=1)) + geom_boxplot() + transition_states(wind.sp,transition_length = 2,state_length = 1) + facet_grid(~ region)
 
 ```
 
