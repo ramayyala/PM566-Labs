@@ -14,23 +14,52 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Read in the Data
+```{r message = FALSE}
+if (!file.exists("met_all.gz"))
+  download.file(
+    url = "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
+    destfile = "met_all.gz",
+    method   = "libcurl",
+    timeout  = 60
+    )
+met <- data.table::fread("met_all.gz")
+```
+# Prepare the Data
 
-## R Markdown
+##Remove Temperatures less than -17C
+```{r message=FALSE}
+met <- met[temp>-17][order(temp)]
+summary(met)
+```
+##Make sure there are no missing data in the key variables coded as 9999, 999, etc
+```{r message=FALSE}
+met[met$elev==9999.0] <- NA
+summary(met$elev)
+```
+##Generate a date variable
+```{r message=FALSE}
+met$date<-as.Date(paste(met$year,met$month,met$day, sep="-"))
+```
+## Keep the observations of the first week of the month, which is week 32
+```{r message=FALSE}
+met <-met[data.table::week(met$date)==32]
+```
+## Compute means 
+```{r message=FALSE}
+met[elev ==max(elev, na.rm=TRUE), .(
+  temp=mean(met$temp, na.rm=TRUE),
+  rh=mean(met$rh, na.rm=TRUE),
+  wind.sp=mean(met$wind.sp, na.rm=TRUE),
+  vis.dist=mean(met$vis.dist, na.rm=TRUE),
+  dew.point=mean(met$dew.point, na.rm=TRUE),
+  lat=mean(met$lat, na.rm=TRUE),
+  lon=mean(met$lon, na.rm=TRUE)
+)]
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```
+## Create region variable 
+```{r}
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
