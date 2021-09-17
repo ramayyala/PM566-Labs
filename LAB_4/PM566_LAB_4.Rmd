@@ -2,8 +2,12 @@
 title: "PM566_LAB4"
 author: "Ram Ayyala"
 date: "9/17/2021"
-output: github_document
-always_allow_html:true
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+    fig_height: 10
+    fig_width: 10
     #code_folding: hide
 ---
 
@@ -11,7 +15,7 @@ always_allow_html:true
 knitr::opts_chunk$set(echo = TRUE)
 ```
 # Read in the Data
-```{r data-read, cache=TRUE}
+```{r data-read}
 library(data.table)
 if (!file.exists("met_all.gz"))
   download.file(
@@ -80,31 +84,34 @@ met_avg[, table(region, useNA ="always")]
 met_avg[, elev_cat := data.table::fifelse(elev > 252, "high", "low")]
 ```
 
-# Examine the wind speed and dew point temperature by region using geom_violin
+# 3. Examine the wind speed and dew point temperature by region using geom_violin
 ```{r}
 library(tidyverse)
 met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= wind.sp, x=1)) + geom_violin() + facet_grid(~ region)
 met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= dew.point, x=1)) + geom_violin() + facet_grid(~ region)
 ```
+### The windspeed in the Northeast and Southeast is relatively the same, except that the Northeast seems to have some form of an outlier. The Nortwest and Southwest regions have similarish wind speeds, but the Southwest seems to have a bigger range. In terms of dew point temperature, the Northwest and Southwest seem to have relatively similar dew point distributions. On the other hand, the Southeast and Northeast dew point distributions are relatively different. The Northeast distribution seems to have a higher dew point temperature than the Southeast region.  
 
 ## 4. Use geom_jitter with stat_smooth to examine the association between dew point temperature and wind speed by region
 ```{r}
 met_avg[!is.na(dew.point) & !is.na(wind.sp)] %>%
   ggplot() + 
-  geom_smooth(mapping = aes(x = dew.point, y = wind.sp, linetype = region))+
-  geom_jitter(mapping=aes(x=dew.point, y=wind.sp, color=region))
+  geom_jitter(mapping=aes(x=dew.point, y=wind.sp, color=region)) + geom_smooth(mapping = aes(x = dew.point, y = wind.sp, linetype = region))
+
 
 
 
 ```
+### It seems that there is a negative association bewteen wind speed and dew point temperature. 
 
 ## 5. Use geom_bar to create barplots of the weather stations by elevation category coloured by region
 ```{r}
 met_avg[!is.na(elev_cat)] %>%
   ggplot() + 
   geom_bar(mapping = aes(x = elev_cat, colour= region, fill = elev_cat), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "Elevation Categories of Weather Stations by Region") + 
-  labs(x = "Elevation Category", y = "Counts")
+  labs(x = "Elevation Category", y = "Number of Weather Stations")
 ```
+### It seems there is a similar number of weather stations in the Northeast region in both high and low elevations. However, in the Northwest, there are very little weather stations at low elevations, while there are some weather stations at the high elevations. For the southeast region, there is a high number of weather stations in the low elevation category, but only some weather stations at the high elevation category. For the southwest region, there are more weather stations at high elevations than at low elevations. 
 
 ## 6. Use stat_summary to examine mean dew point and wind speed by region with standard deviation error bars
 ```{r plot-stat_summ}
@@ -113,7 +120,14 @@ ggplot(
     mapping = aes(x = region, y = wind.sp)) +
     stat_summary(fun.data = "mean_sdl") + 
     stat_summary(fun.data = "mean_sdl", geom="errorbar")
+ggplot(
+    met_avg[!is.na(wind.sp) & !is.na(dew.point)],
+    mapping = aes(x = region, y = dew.point)) +
+    stat_summary(fun.data = "mean_sdl") + 
+    stat_summary(fun.data = "mean_sdl", geom="errorbar")
 ```
+### I observe that the northwest and southwest regions have similar windspeed and dew point temperatures, while the northeast and southeast regions have similar windspeed and dew point temperatures. The dew point temperature from around 17 - 21 mph for the Northeast and southeast regions. For the Northwest and Southwest regions, the dew point temperature is around 12C. In terms of windspeed, the Northeast and Southeast regions had a windspeed of about 1.75 mph, while the Northwest and Southwest regions had a windspeed of about 3mph. 
+
 ## 7.  Make a map showing the spatial trend in relative h in the US
 ```{r}
 library(leaflet)
@@ -130,14 +144,16 @@ leaflet(met_avg) %>%
     ) %>%
   # And a pretty legend
   addLegend('bottomleft', pal=temp.pal, values=met_avg$rh,
-          title='Temperature, C', opacity=1)
+          title='Temperature, C', opacity=1) %>%
+  addMarkers(met_avg$lon,met_avg$lat, rank(-met_avg$rh) <= 10)
 ```
+### RH seems to increase across the US from the West Coast to the East Coast. 
 
 #8. Use a ggplot extension
 ```{r}
 library(gganimate)
 library(tidyverse)
-p<-met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= wind.sp, x=1)) + geom_boxplot() + transition_states(wind.sp,transition_length = 2,state_length = 1) + facet_grid(~ region)
+met_avg[!is.na(region)] %>% ggplot(met_avg, mapping =aes(y= wind.sp, x=1)) + geom_boxplot() + transition_states(wind.sp,transition_length = 2,state_length = 1) + facet_grid(~ region)
 
 ```
 
