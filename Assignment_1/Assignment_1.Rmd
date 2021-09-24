@@ -1,13 +1,15 @@
 ---
 title: "Assignment 1"
-output:
+output: 
   github_document:
+    html_preview: false
   html_document:
     toc: yes
     toc_float: yes
     fig_height: 10
     fig_width: 10
     #code_folding: hide
+always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
@@ -42,8 +44,8 @@ str(air_2019)
 ```
 # Key Variables
 ```{r}
-table(air_2004$Date)
-table(air_2019$Date)
+#table(air_2004$Date)
+#table(air_2019$Date)
 
 ```
 
@@ -51,7 +53,9 @@ table(air_2019$Date)
 ```{r}
 summary(air_2004$`Daily Mean PM2.5 Concentration`)
 summary(air_2019$`Daily Mean PM2.5 Concentration`)
-mean(is.na(air_2004$`Daily Mean PM2.5 Concentration`)) ##Checking to see if any NA's exist 
+
+##Checking to see if any NA's exist 
+mean(is.na(air_2004$`Daily Mean PM2.5 Concentration`)) 
 mean(is.na(air_2019$`Daily Mean PM2.5 Concentration`))
 ```
 
@@ -62,11 +66,15 @@ mean(is.na(air_2019$`Daily Mean PM2.5 Concentration`))
 # Combining Data into One Data Frame, Creating Year Column, Changing names of key variables
 ```{r}
 air_2004_2019 <- rbind(air_2004,air_2019)
-air_2004_2019$Year <- format(as.Date(air_2004_2019$Date, format="%m/%d/%Y"),"%Y")
+#air_2004_2019$Year <- format(as.Date(air_2004_2019$Date, format="%m/%d/%Y"),"%Y")
+air_2004_2019 <- mutate(air_2004_2019, year = factor(rep(c(2004, 2019), c(nrow(air_2004), nrow(air_2019)))))
 colnames(air_2004_2019)[which(names(air_2004_2019) == "Daily Mean PM2.5 Concentration")] <- "PM2.5"
 colnames(air_2004_2019)[which(names(air_2004_2019) == "SITE_LATITUDE")] <- "lat"
 colnames(air_2004_2019)[which(names(air_2004_2019) == "SITE_LONGITUDE")] <- "lon"
-
+air_2004_2019 <- air_2004_2019[PM2.5>=0][order(PM2.5)]
+#summary(air_2004_2019$PM2.5)
+#gplot(air_2004_2019) + 
+  #geom_histogram(mapping = aes(x = PM2.5))
 ```
 
 #Part 3
@@ -75,18 +83,18 @@ colnames(air_2004_2019)[which(names(air_2004_2019) == "SITE_LONGITUDE")] <- "lon
 ```{r}
 library(leaflet)
 
-temp.pal <- colorFactor(palette ='Accent', domain=air_2004_2019$Year)
+temp.pal <- colorFactor(palette ='Accent', domain=air_2004_2019$year)
 
 leaflet(air_2004_2019) %>%
   addProviderTiles('CartoDB.Positron') %>%
   addCircles(
     lat = ~lat, lng=~lon,
                                                   # HERE IS OUR PAL!
-    label = air_2004_2019$`Site Name`, color = ~ temp.pal(air_2004_2019$Year),
+    label = air_2004_2019$`Site Name`, color = ~ temp.pal(air_2004_2019$year),
     opacity = 1, fillOpacity = 1, radius = 500
     ) %>%
   # And a pretty legend
-  addLegend('bottomleft', pal=temp.pal, values=air_2004_2019$Year,
+  addLegend('bottomleft', pal=temp.pal, values=air_2004_2019$year,
           title='Year', opacity=1)
  # addMarkers(air_2004_2019$lon,air_2004_2019$lat, rank(-air_2004_2019$PM2.5) <= 10)
 ```
@@ -109,27 +117,39 @@ whether daily concentrations of PM (particulate matter air pollution with aerody
 
 ```{r}
 library(ggplot2)
-air_2004_2019[!is.na(PM2.5)] %>%
-  ggplot() + 
-  geom_bar(mapping = aes(x = Year, fill=Year), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "PM2.5 Levels in California in 2004 and in 2019") + 
-  labs(x = "Year", y = "[PM2.5]")
+air_2004_2019[!is.na(PM2.5)] %>% 
+  ggplot()+
+  geom_boxplot(mapping=aes(x=year, y=log2(PM2.5), fill=year)) + labs(title = "PM2.5 Levels in California in 2004 and in 2019") +  labs(x = "Year", y = "log2([PM2.5])")
+with(air_2004_2019, tapply(PM2.5, year, summary))
 ```
 ## County
 ```{r}
-air_2004_2019[!is.na(PM2.5)] %>%
-  ggplot() + 
-  geom_bar(mapping = aes(x = Year, colour=COUNTY,fill=Year), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "PM2.5 Levels in California in 2004 and in 2019") + 
-  labs(x = "Year", y = "[PM2.5]")
+avg_pm_county <- group_by(air_2004_2019, year, COUNTY) %>% summarize(PM_AVG = mean(PM2.5, na.rm = TRUE))
+tail(avg_pm_county)
+temp.pal <- colorFactor(palette ='Accent', domain=avg_pm_county$COUNTY)
+ggplot(data=avg_pm_county, aes(x=as.numeric(as.character(year)), y=PM_AVG, group=COUNTY)) +
+  geom_line(color=temp.pal(avg_pm_county$COUNTY))+
+  geom_point(color=temp.pal(avg_pm_county$COUNTY))+
+  labs(title = "Average PM2.5 Levels Between 2004 to 2019 in All Counties") +  labs(x = "Year", y = "Average [PM2.5]") 
+
+
+
 ```
 
 ## Sites in Los Angeles 
 ```{r}
-library(tidyverse)
-air_LA <-as_tibble(air_2004_2019) %>% filter(`Site Name` == 'Azusa')
-air_LA <- as.data.frame(air_LA)
-air_LA %>%
-  ggplot() + 
-  geom_bar(mapping = aes(x = Year,fill=Year), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "PM2.5 Levels in Azusa Site in LA County in 2004 and in 2019") + 
-  labs(x = "Year", y = "[PM2.5]")
+sites <- filter(air_2004_2019, COUNTY_CODE == 37) %>% select(COUNTY_CODE, `Site ID`, year) %>% unique
+sites <- mutate(sites, site.code = paste(COUNTY_CODE, `Site ID`, sep = "."))
+str(sites)
+site.year <- with(sites, split(site.code, year))
+both <- intersect(site.year[[1]], site.year[[2]])
+print(both)
+count <- mutate(air_2004_2019, site.code = paste(COUNTY_CODE, `Site ID`, sep = ".")) %>% filter(site.code %in% both)
+group_by(count, site.code) %>% summarize(n = n())
+#focus on Site ID 60371103
+library(lubridate)
+air_60371103 <- filter(air_2004_2019, COUNTY_CODE == "37" & `Site ID` == "60371103") %>% select(Date, year, PM2.5) %>%  mutate(Date = format(as.Date(Date,format="%Y/%m/%d")), yday = format(as.Date(Date,format="%Y/%d")))
+qplot(Date, PM2.5, data = air_60371103, facets = . ~ year, xlab = "Day of the year")
+
 ```
 
