@@ -152,6 +152,27 @@ Number of states included, and
 Mean temperature, wind-speed, and atmospheric pressure.
 All by the levels described before.
 ```{r}
+#avg temp by state 
+dat[, state_temp := mean(temp, na.rm=TRUE), by = STATE]
+#Create temp cat variable
+dat[, temp_cat := fifelse(
+  state_temp < 20, "low-temp",
+  fifelse(state_temp < 25, "mid-temp", "high-temp"))
+  ]
+#Check for NAs
+table(met$temp_cat, useNA="always")
+
+# Summarize
+tab <-dat [, .(
+  N_entries =.N,
+  N_stations = length(unique(USAFID)),
+  N_states = length(unique(STATE)),
+  temp_avg= mean(temp, na.rm=TRUE),
+  wind.sp_avg = mean(wind.sp, na.rm=TRUE),
+  atm.press_avg = mean(atm.press, na.rm=TRUE)
+), by=temp_cat]
+
+knitr::kable(tab)
 
 ```
 

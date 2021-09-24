@@ -269,3 +269,40 @@ low: temp &lt; 20 Mid: temp &gt;= 20 and temp &lt; 25 High: temp &gt;=
 Number of entries (records), Number of NA entries, Number of stations,
 Number of states included, and Mean temperature, wind-speed, and
 atmospheric pressure. All by the levels described before.
+
+``` r
+#avg temp by state 
+dat[, state_temp := mean(temp, na.rm=TRUE), by = STATE]
+#Create temp cat variable
+dat[, temp_cat := fifelse(
+  state_temp < 20, "low-temp",
+  fifelse(state_temp < 25, "mid-temp", "high-temp"))
+  ]
+#Check for NAs
+table(met$temp_cat, useNA="always")
+```
+
+    ## 
+    ## <NA> 
+    ##    0
+
+``` r
+# Summarize
+tab <-dat [, .(
+  N_entries =.N,
+  N_stations = length(unique(USAFID)),
+  N_states = length(unique(STATE)),
+  temp_avg= mean(temp, na.rm=TRUE),
+  wind.sp_avg = mean(wind.sp, na.rm=TRUE),
+  atm.press_avg = mean(atm.press, na.rm=TRUE)
+), by=temp_cat]
+
+knitr::kable(tab)
+```
+
+| temp\_cat | N\_entries | N\_stations | N\_states | temp\_avg | wind.sp\_avg | atm.press\_avg |
+|:----------|-----------:|------------:|----------:|----------:|-------------:|---------------:|
+| NA        |        182 |           1 |         1 |       NaN |          NaN |            NaN |
+| mid-temp  |    1106048 |         777 |        25 |  22.39949 |     2.354367 |       1014.384 |
+| high-temp |     787592 |         552 |        12 |  27.75375 |     2.521974 |       1013.739 |
+| low-temp  |     423390 |         259 |        11 |  18.96496 |     2.635348 |       1014.366 |
