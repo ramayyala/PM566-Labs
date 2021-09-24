@@ -11,7 +11,7 @@ output:
     fig_height: 10
     fig_width: 10
     #code_folding: hide
-always_allow_html:true
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -80,7 +80,7 @@ dat <- merge(
 # Question 1: Representative station for the US
 ## What is the median station in terms of temperature, wind speed, and atmospheric pressure? Look for the three weather stations that best represent continental US using the quantile() function. Do these three coincide?
 
-## We generate a representative version of each station. We will use th eaverages (median could also be a good way to represent it, but ti will depend on case)
+We generate a representative version of each station. We will use th eaverages (median could also be a good way to represent it, but ti will depend on case)
 ```{r collapsing-by-station}
 station_averages <- dat[,.(
   temp = mean(temp,na.rm=TRUE),
@@ -89,19 +89,43 @@ station_averages <- dat[,.(
 ), by= USAFID]
 ```
 
-# Identify Quanitlies per variable
+# Identify Quantiles per variable
 ```{r}
-station_averages[,.(
+medians <- station_averages[,.(
   temp_50 = quantile(temp,probs = .5, na.rm=TRUE),
   wind.sp_50 = quantile(wind.sp,probs = .5, na.rm=TRUE),
   atm.press_50 = quantile(atm.press,probs = .5, na.rm=TRUE)
 )]
+medians
 ```
+Now we can find stations that match these values or are the closets to them via `which.min()` 
+```{r}
+station_averages[, temp_dist := abs(temp -medians$temp_50)]
+median_temp_station <- station_averages[order(temp_dist)][1]
+median_temp_station
+```
+The Median temperature station is ` r median_temp station$USAFID`. 
 
 # Question 2: Representative station per state 
 ## Just like the previous question, you are asked to identify what is the most representative, the median, station per state. This time, instead of looking at one variable at a time, look at the euclidean distance. If multiple stations show in the median, select the one located at the lowest latitude.
 ```{r}
+station_averages <- merge(
+  # Data
+  x     = station_averages,      
+  y     = stations, 
+  # List of variables to match
+  by.x  = "USAFID",
+  by.y  = "USAF", 
+  # Which obs to keep?
+  all.x = TRUE,      
+  all.y = FALSE
+  )
+station_averages[, temp_50 := quantile(temp, probs=.5, na.rm=TRUE), by= STATE]
+station_averages[, wind.sp_50 := quantile(wind.sp, probs=.5, na.rm=TRUE), by= STATE]
+station_averages
 
+#euclidean distance
+station_averages[, eudist := sqrt((temp-temp_50)^2 + (wind.sp - wind.sp_50)^2)]
 ```
 
 
