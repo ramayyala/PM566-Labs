@@ -1,0 +1,135 @@
+---
+title: "Assignment 1"
+output:
+  github_document:
+  html_document:
+    toc: yes
+    toc_float: yes
+    fig_height: 10
+    fig_width: 10
+    #code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Part 1 
+# Reading the Data
+```{r}
+if (!require(tidyverse)) {
+  install.packages("tidyverse")}
+if (!require(data.table)) {
+  install.packages("data.table")}
+air_2004 <- data.table::fread("2004_air.csv")
+air_2019 <- data.table::fread("2019_air.csv")
+```
+# Check Dimensions
+```{r}
+dim(air_2004)
+dim(air_2019)
+```
+# Check Headers and Footers
+```{r}
+head(air_2004)
+head(air_2019)
+tail(air_2004)
+tail(air_2019)
+```
+# Check Variable Names and Variable Types
+```{r}
+str(air_2004)
+str(air_2019)
+```
+# Key Variables
+```{r}
+table(air_2004$Date)
+table(air_2019$Date)
+
+```
+
+# Continuous Variables
+```{r}
+summary(air_2004$`Daily Mean PM2.5 Concentration`)
+summary(air_2019$`Daily Mean PM2.5 Concentration`)
+mean(is.na(air_2004$`Daily Mean PM2.5 Concentration`)) ##Checking to see if any NA's exist 
+mean(is.na(air_2019$`Daily Mean PM2.5 Concentration`))
+```
+
+## Summary of Findings 
+
+# Part 2
+
+# Combining Data into One Data Frame, Creating Year Column, Changing names of key variables
+```{r}
+air_2004_2019 <- rbind(air_2004,air_2019)
+air_2004_2019$Year <- format(as.Date(air_2004_2019$Date, format="%m/%d/%Y"),"%Y")
+colnames(air_2004_2019)[which(names(air_2004_2019) == "Daily Mean PM2.5 Concentration")] <- "PM2.5"
+colnames(air_2004_2019)[which(names(air_2004_2019) == "SITE_LATITUDE")] <- "lat"
+colnames(air_2004_2019)[which(names(air_2004_2019) == "SITE_LONGITUDE")] <- "lon"
+
+```
+
+#Part 3
+
+#Create Leaflet map showing the locations of the sites 
+```{r}
+library(leaflet)
+
+temp.pal <- colorFactor(palette ='Accent', domain=air_2004_2019$Year)
+
+leaflet(air_2004_2019) %>%
+  addProviderTiles('CartoDB.Positron') %>%
+  addCircles(
+    lat = ~lat, lng=~lon,
+                                                  # HERE IS OUR PAL!
+    label = air_2004_2019$`Site Name`, color = ~ temp.pal(air_2004_2019$Year),
+    opacity = 1, fillOpacity = 1, radius = 500
+    ) %>%
+  # And a pretty legend
+  addLegend('bottomleft', pal=temp.pal, values=air_2004_2019$Year,
+          title='Year', opacity=1)
+ # addMarkers(air_2004_2019$lon,air_2004_2019$lat, rank(-air_2004_2019$PM2.5) <= 10)
+```
+# Summarize the Spatial distribution of the monitoring sites
+
+#Part 4
+
+#Check for missing or implausible values of PM2.5 in the combined dataset 
+```{r}
+#table(air_2004_2019$PM2.5)
+summary(air_2004_2019$PM2.5)
+```
+
+#Part 5
+
+# Explore the main question of interest at three different spatial levels. Create exploratory plots (e.g. boxplots, histograms, line plots) and summary statistics that best suit each level of data. Be sure to write up explanations of what you observe in these data.
+whether daily concentrations of PM (particulate matter air pollution with aerodynamic diameter less than 2.5 m) have decreased in California over the last 15 years (from 2004 to 2019)
+
+##State
+
+```{r}
+library(ggplot2)
+air_2004_2019[!is.na(PM2.5)] %>%
+  ggplot() + 
+  geom_bar(mapping = aes(x = Year, fill=Year), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "PM2.5 Levels in California in 2004 and in 2019") + 
+  labs(x = "Year", y = "[PM2.5]")
+```
+## County
+```{r}
+air_2004_2019[!is.na(PM2.5)] %>%
+  ggplot() + 
+  geom_bar(mapping = aes(x = Year, colour=COUNTY,fill=Year), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "PM2.5 Levels in California in 2004 and in 2019") + 
+  labs(x = "Year", y = "[PM2.5]")
+```
+
+## Sites in Los Angeles 
+```{r}
+library(tidyverse)
+air_LA <-as_tibble(air_2004_2019) %>% filter(`Site Name` == 'Azusa')
+air_LA <- as.data.frame(air_LA)
+air_LA %>%
+  ggplot() + 
+  geom_bar(mapping = aes(x = Year,fill=Year), position = "dodge") + scale_fill_brewer(palette = "Accent") + labs(title = "PM2.5 Levels in Azusa Site in LA County in 2004 and in 2019") + 
+  labs(x = "Year", y = "[PM2.5]")
+```
+
