@@ -9,6 +9,9 @@ output:
     fig_height: 10
     fig_width: 10
     #code_folding: hide
+  github_document:
+    html_preview: false
+always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
