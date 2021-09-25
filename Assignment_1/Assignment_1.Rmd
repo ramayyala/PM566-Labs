@@ -1,14 +1,14 @@
 ---
 title: "Assignment 1"
 output: 
-  github_document:
-    html_preview: false
   html_document:
     toc: yes
     toc_float: yes
     fig_height: 10
     fig_width: 10
     #code_folding: hide
+  github_document:
+    html_preview: false
 always_allow_html: true
 ---
 
@@ -22,6 +22,9 @@ if (!require(tidyverse)) {
   install.packages("tidyverse")}
 if (!require(data.table)) {
   install.packages("data.table")}
+if (!require(lubridate)) {
+  install.packages("lubridate")
+}
 air_2004 <- data.table::fread("2004_air.csv")
 air_2019 <- data.table::fread("2019_air.csv")
 ```
@@ -46,20 +49,18 @@ str(air_2019)
 ```{r}
 #table(air_2004$Date)
 #table(air_2019$Date)
-
-```
-
-# Continuous Variables
-```{r}
 summary(air_2004$`Daily Mean PM2.5 Concentration`)
 summary(air_2019$`Daily Mean PM2.5 Concentration`)
 
 ##Checking to see if any NA's exist 
 mean(is.na(air_2004$`Daily Mean PM2.5 Concentration`)) 
 mean(is.na(air_2019$`Daily Mean PM2.5 Concentration`))
+
 ```
 
 ## Summary of Findings 
+* From checks ran on the variables of the datasets, there are not any glaring issues as there are not any NA's present in the PM2.5 Concentration values. However, the only concering factor would be that there are negative PM2.5 values, which generally isn't possible unless due to calibrations and such. So for the sake of the analysis, we will remove these negative values but that will be done after we merge the data, as it is simpler to remove from one concantenated dataset rather than two seperate datasets. 
+
 
 # Part 2
 
@@ -99,7 +100,7 @@ leaflet(air_2004_2019) %>%
  # addMarkers(air_2004_2019$lon,air_2004_2019$lat, rank(-air_2004_2019$PM2.5) <= 10)
 ```
 # Summarize the Spatial distribution of the monitoring sites
-
+*From the leaflet map, we can see about an even distribution of sites from the 2004 data set and the 2019 data set. There does seem to be a bit more 2004 monitoring sites in comparison to the the 2019 sites. All of the sites seem to be mainly located on the coast of California rather near the borders of the state. 
 #Part 4
 
 #Check for missing or implausible values of PM2.5 in the combined dataset 
@@ -107,6 +108,8 @@ leaflet(air_2004_2019) %>%
 #table(air_2004_2019$PM2.5)
 summary(air_2004_2019$PM2.5)
 ```
+## Summary of Observations
+* We already removed the implausible values for PM2.5 earlier and we already checked for any missing values, so nothing to really change here. In terms of temporal patters, it seems evident that there is a slight decrease in PM2.5 values from 2004 to the 2019, as the max PM2.5 value decreased by nearly 130ug/m3 LC. Moreover, the 2019 datapoints for PM2.5 seem to have a slight rightward skew more so than the 2004 datapoints for PM2.5 Concentrations.
 
 #Part 5
 
@@ -122,6 +125,9 @@ air_2004_2019[!is.na(PM2.5)] %>%
   geom_boxplot(mapping=aes(x=year, y=log2(PM2.5), fill=year)) + labs(title = "PM2.5 Levels in California in 2004 and in 2019") +  labs(x = "Year", y = "log2([PM2.5])")
 with(air_2004_2019, tapply(PM2.5, year, summary))
 ```
+
+* From the graph, we see that there is a decrease in the PM2.5 values over the years from 2004 to 2019 in the State of California, as the median value for Log2(PM2.5) is around 3.2, while for 2019, it is around 2.8. which translates to 10.10ug/m3 LC and 6.58 ug/m3 LC respectively in PM2.5 concetration. We logged the PM2.5 values to account for the right skewdness of the data set which allows us to get a better look at the change in PM2.5 concentration over the years. In both cases, there seems to be a lot of outliers overall, which is to be expected. 
+
 ## County
 ```{r}
 avg_pm_county <- group_by(air_2004_2019, year, COUNTY) %>% summarize(PM_AVG = mean(PM2.5, na.rm = TRUE))
@@ -135,6 +141,7 @@ ggplot(data=avg_pm_county, aes(x=as.numeric(as.character(year)), y=PM_AVG, group
 
 
 ```
+* While this graph, isn't the most descriptive, it does get the point across that the Average PM2.5 concentration for each county decreased over the years. 
 
 ## Sites in Los Angeles 
 ```{r}
@@ -147,9 +154,8 @@ print(both)
 count <- mutate(air_2004_2019, site.code = paste(COUNTY_CODE, `Site ID`, sep = ".")) %>% filter(site.code %in% both)
 group_by(count, site.code) %>% summarize(n = n())
 #focus on Site ID 60371103
-library(lubridate)
 air_60371103 <- filter(air_2004_2019, COUNTY_CODE == "37" & `Site ID` == "60371103") %>% select(Date, year, PM2.5) %>%  mutate(Date = format(as.Date(Date,format="%Y/%m/%d")), yday = format(as.Date(Date,format="%Y/%d")))
 qplot(Date, PM2.5, data = air_60371103, facets = . ~ year, xlab = "Day of the year")
 
 ```
-
+* From the graph, we can see that the PM2.5 Concentration did in fact decrease as noted in previous plots. This shows is very clearly as it maps the trends of the PM25 concentration by the days of the year of each year. However, what is interesting, is that while the 2004 points seem to be decreasing over the year, the 2019 dataset seems to be increasing over the year which can be attributed to a multitude of things, namely the rapid increase in fires in California specificly, but more generally, the increase in prescence of things like power plants and automobiles over of the years. 
