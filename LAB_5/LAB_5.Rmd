@@ -3,14 +3,15 @@ title: "LAB_5"
 author: "Ram Ayyala"
 date: "9/24/2021"
 output: 
-  github_document:
-    html_preview: false
   html_document:
     toc: yes
     toc_float: yes
     fig_height: 10
     fig_width: 10
     #code_folding: hide
+  github_document:
+    html_preview: false
+always_allow_html: true
     
 ---
 
@@ -103,8 +104,17 @@ Now we can find stations that match these values or are the closets to them via 
 station_averages[, temp_dist := abs(temp -medians$temp_50)]
 median_temp_station <- station_averages[order(temp_dist)][1]
 median_temp_station
+station_averages[, wind.sp_dist := abs(wind.sp -medians$wind.sp_50)]
+median_wind.sp_station <- station_averages[order(wind.sp_dist)][1]
+median_wind.sp_station
+station_averages[, atm.press_dist := abs(atm.press -medians$atm.press_50)]
+median_atm.press_station <- station_averages[order(atm.press_dist)][1]
+median_atm.press_station
 ```
-The Median temperature station is ` r median_temp station$USAFID`. 
+The median temperature station is ` r median_temp_station$USAFID`. 
+The median wind speed station is ` r median_wind.sp_station$USAFID`. 
+The median atmospheric pressure station is ` r median_atm.press_station$USAFID`. 
+
 
 # Question 2: Representative station per state 
 ## Just like the previous question, you are asked to identify what is the most representative, the median, station per state. This time, instead of looking at one variable at a time, look at the euclidean distance. If multiple stations show in the median, select the one located at the lowest latitude.
@@ -126,13 +136,41 @@ station_averages
 
 #euclidean distance
 station_averages[, eudist := sqrt((temp-temp_50)^2 + (wind.sp - wind.sp_50)^2)]
+station_averages[ , .SD[which.min(eudist)], by = STATE]
 ```
 
 
 # Question 3: In the middle? 
 ## For each state, identify what is the station that is closest to the mid-point of the state. Combining these with the stations you identified in the previous question, use leaflet() to visualize all ~100 points in the same figure, applying different colors for those identified in this question.
 ```{r}
+#Determining the Midpoint of the States
+midpoint<-dat[, .(
+  lat_50=quantile(lat, probs=.5, na.rm=TRUE),
+  lon_50=quantile(lon, probs=.5, na.rm=TRUE)
+),by=STATE]
 
+midpoint_data<-merge(x=dat, y=midpoint, by="STATE")
+
+# Calculating euclidean distance
+midpoint_data[, mid_eudist:=sqrt(
+  (lon-lon_50)^2+(lat-lat_50)^2
+)]
+# Determining closest station to the midpoint
+midpoint_station<-midpoint_data[ , .SD[which.min(mid_eudist)], by = STATE]
+
+#Make leaflet
+library(leaflet)
+temp.pal <- colorFactor(palette ='Accent', domain=midpoint_station$STATE)
+leaflet() %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(
+    data = midpoint_station,
+    label = midpoint_station$USAFID, color = ~ temp.pal(midpoint_station$STATE),
+    opacity = 1, fillOpacity = 1, radius = 500
+    )
+  # And a pretty legend
+ #addLegend('bottomleft', pal=temp.pal, values=midpoint_station$STATE,
+          #title='Year', opacity=1)
 ```
 
 # Question 4: Means of means
