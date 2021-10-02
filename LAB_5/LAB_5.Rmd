@@ -3,12 +3,6 @@ title: "LAB_5"
 author: "Ram Ayyala"
 date: "9/24/2021"
 output: 
-  html_document:
-    toc: yes
-    toc_float: yes
-    fig_height: 10
-    fig_width: 10
-    #code_folding: hide
   github_document:
     html_preview: false
 always_allow_html: true
