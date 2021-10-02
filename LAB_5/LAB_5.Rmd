@@ -111,9 +111,9 @@ station_averages[, atm.press_dist := abs(atm.press -medians$atm.press_50)]
 median_atm.press_station <- station_averages[order(atm.press_dist)][1]
 median_atm.press_station
 ```
-The median temperature station is ` r median_temp_station$USAFID`. 
-The median wind speed station is ` r median_wind.sp_station$USAFID`. 
-The median atmospheric pressure station is ` r median_atm.press_station$USAFID`. 
+The median temperature station is `r median_temp_station$USAFID`. 
+The median wind speed station is `r median_wind.sp_station$USAFID`. 
+The median atmospheric pressure station is `r median_atm.press_station$USAFID`. 
 
 
 # Question 2: Representative station per state 
