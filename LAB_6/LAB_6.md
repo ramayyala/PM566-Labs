@@ -1,27 +1,20 @@
----
-title: "LAB_6"
-author: "Ram Ayyala"
-date: "10/3/2021"
-output: 
-  github_document:
-  html_document:
-    html_preview: false
-always_allow_html: true
----
+LAB\_6
+================
+Ram Ayyala
+10/3/2021
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
-```
+\#Loading Libraries
 
-#Loading Libraries
-```{r}
+``` r
 library(dplyr)
 library(ggplot2)
 library(tidytext)
 library(tibble)
 ```
-#Download Data
-```{r get-data}
+
+\#Download Data
+
+``` r
 fn <- "mtsamples.csv"
 if (!file.exists(fn))
   download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv", destfile=fn)
@@ -31,7 +24,8 @@ mtsamples <- as_tibble(mtsamples)
 ```
 
 ## Question 1: What specialties do we have?
-```{r dist-of-specialties}
+
+``` r
 specialties <- mtsamples %>%
   count(medical_specialty)
 specialties %>%
@@ -39,29 +33,14 @@ specialties %>%
   top_n(n,15) %>%
   knitr::kable()
 ```
-There are `r nrow(specialties)` specialties. Let's take a look at the distribution
 
+There are `r nrow(specialties)` specialties. Let’s take a look at the
+distribution
 
-```{r}
+``` r
 ggplot(mtsamples, aes(x=medical_specialty)) +
   geom_histogram(stat="count") +
   coord_flip()
 ```
-The specialty categories are not uniformly distributed. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The specialty categories are not uniformly distributed.
