@@ -10,7 +10,7 @@ always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 #Loading Libraries
@@ -19,6 +19,8 @@ library(dplyr)
 library(ggplot2)
 library(tidytext)
 library(tibble)
+library(forcats)
+library(tidyverse)
 ```
 #Download Data
 ```{r get-data}
@@ -36,29 +38,126 @@ specialties <- mtsamples %>%
   count(medical_specialty)
 specialties %>%
   arrange(desc(n)) %>%
-  top_n(n,15) %>%
+  top_n(15) %>%
   knitr::kable()
 ```
-There are `r nrow(specialties)` specialties. Let's take a look at the distribution
+There are ` r nrow(specialties)` specialties. Let's take a look at the distribution
 
 
 ```{r}
-ggplot(mtsamples, aes(x=medical_specialty)) +
-  geom_histogram(stat="count") +
-  coord_flip()
+#ggplot(mtsamples, aes(x=medical_specialty)) +
+#  geom_histogram(stat="count") +
+ # coord_flip()
+
+ggplot(specialties, aes(x =n, y = fct_reorder(medical_specialty, n))) + 
+  geom_col()
 ```
 The specialty categories are not uniformly distributed. 
 
 
+## Question 2
+
+```{r token-transcript, cache = TRUE}
+mtsamples %>%
+  unnest_tokens(output = word, input = transcription) %>%
+  count(word, sort = TRUE) %>% 
+  top_n(20) %>%
+  ggplot (aes(x=n, y=fct_reorder(word,n)))+
+  geom_col()
+  
+
+```
+
+The word "patient" seems ot be important which makes sense given the dataset. However we do observe a lot of stopwords. 
+
+## Question 3
+```{r nostop-token-transcript, cache = TRUE}
+mtsamples %>%
+  unnest_tokens(output = word, input = transcription) %>%
+  count(word, sort = TRUE) %>% 
+  anti_join(stop_words, by ="word") %>%
+  #using regex to remove numbers 
+  filter(!grepl("^[0-9]+$",x=word)) %>%
+  top_n(20) %>%
+  ggplot (aes(x=n, y=fct_reorder(word,n)))+
+  geom_col()
+  
+
+```
+Now that we have removed the stop words, we see that there are alot of interesting words, with patient being the top word as expected. We see that the text overall is about diagnosing, patient history, the procedure, and patient history which include things like past procedures informed, where the surgery was and where the incesion was, etc. 
+
+## Question 4
+```{r bigram-transcript, cache=TRUE}
+mtsamples %>%
+  unnest_ngrams(output = bigram, input = transcription, n = 2) %>%
+  count(bigram, sort = TRUE) %>% 
+  top_n(20) %>%
+  ggplot (aes(x=n, y=fct_reorder(bigram,n)))+
+  geom_col()
+```
+Using bi-grams is not very informative, so lets try with tri-grams.
+
+```{r trigram-transcript, cache=TRUE}
+mtsamples %>%
+  unnest_ngrams(output = trigram, input = transcription, n = 3) %>%
+  count(trigram, sort = TRUE) %>% 
+  top_n(20) %>%
+  ggplot (aes(x=n, y=fct_reorder(trigram,n)))+
+  geom_col()
+```
+
+With trigrams, we start to see some of the phrases like "tolerated the procedure", "prepped and draped." This gives us more context into the dataset. 
+
+## Question 5
+
+```{r bigram-history-transcript, cache=TRUE}
+bigrams<- mtsamples %>%
+  unnest_ngrams(output = bigram, input = transcription, n = 2) %>%
+  separate(bigram, into=c("w1", "w2"), sep =" ")
+
+bigrams %>%
+  filter(w1=="history") %>%
+  select(w1,w2) %>%
+  count(w2, sort = TRUE)
+
+bigrams %>%
+  filter(w2=="history") %>%
+  select(w1,w2) %>%
+  count(w1, sort = TRUE)
+
+  
+```
+Since we are looking at single words again, it is a good idea to tteat these as single tokens. So lets remove the stopwords and the numbers 
+
+```{r history-wo-stop}
+bigrams %>%
+  filter(w1 == "history")%>%
+  filter(!(w2 %in% stop_words$word) & !grepl("^[0-9]+$", w2)) %>% 
+  count(w2, sort=TRUE) %>%
+  top_n(10) %>% 
+  knitr::kable(caption = "Words AFTER history")
+
+bigrams %>%
+  filter(w2 == "history")%>%
+  filter(!(w1 %in% stop_words$word) & !grepl("^[0-9]+$", w1)) %>% 
+  count(w1, sort=TRUE) %>%
+  top_n(10) %>% 
+  knitr::kable(caption = "Words BEFORE history")
+```
 
 
 
-
-
-
-
-
-
+## Question 6
+```{r top-per-specialty}
+mtsamples %>%
+  unnest_tokens(word, input=transcription) %>% 
+  group_by(medical_specialty) %>% 
+  count(word, sort = TRUE) %>%
+  filter(!(word %in% stop_words$word) & !grepl("^[0-9]+$", word)) %>%
+  top_n(5) %>%
+  arrange(medical_specialty,n) %>%
+  knitr::kable()
+```
 
 
 
