@@ -1,0 +1,86 @@
+---
+title: "Assignment_2"
+author: "Ram Ayyala"
+date: "10/4/2021"
+output: 
+  github_document:
+  html_document:
+    toc: yes
+    toc_float: yes
+    html_preview: false
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Download Data
+
+```{r}
+library(data.table)
+library(tidyverse)
+fn1 <- "chs_individual.csv"
+if (!file.exists(fn1))
+  download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_individual.csv", destfile=fn1)
+
+fn2 <- "chs_regional.csv"
+if (!file.exists(fn2))
+  download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_regional.csv", destfile=fn2)
+
+individual <- read.csv(fn1)
+individual <- as_tibble(individual)
+regional <- read.csv(fn2)
+regional <- as_tibble(regional)
+```
+
+# Merge Data
+```{r}
+dat <- merge(
+  # Data
+  x     = individual,      
+  y     = regional, 
+  # List of variables to match
+  by.x  = "townname",
+  by.y  = "townname", 
+  # Which obs to keep?
+  all.x = TRUE,      
+  all.y = FALSE
+  )
+```
+
+# Check for duplicates
+```{r}
+nrow(dat) == nrow(individual)
+```
+
+# Impute Data with missing values
+```{r}
+library(Amelia)
+#find out which columns have missing values
+idvars= c(names(which(!colSums(is.na(dat)) > 0)))
+c(names(which(colSums(is.na(dat)) > 0)))
+a.out <- amelia(dat, m = 5, idvars=idvars)
+dat <- a.out$imputations[[1]]
+dat <- data.table(dat)
+```
+
+# Create cat variable obesity level 
+```{r}
+dat[bmi < 14, obesity_level := "underweight"]
+dat[bmi >= 14 & bmi <22, obesity_level := "normal"]
+dat[bmi >= 22 & bmi <=24, obesity_level := "overweight"]
+dat[bmi > 24, obesity_level := "obese"]
+dat[, .(
+  min_bmi = min(bmi),
+  max_bmi = max(bmi),
+  underweight = dat %>% filter(obesity_level == "underweight") %>% count(),
+  normal = dat %>% filter(obesity_level == "normal") %>% count(),
+  overweight = dat %>% filter(obesity_level == "overweight") %>% count(),
+  obese = dat %>% filter(obesity_level == "obese") %>% count()
+  )] %>%
+  knitr::kable()
+
+```
+
+# Create cat variable smoke_gas_exposure
