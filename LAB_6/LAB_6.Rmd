@@ -5,6 +5,8 @@ date: "10/3/2021"
 output: 
   github_document:
   html_document:
+    toc: yes
+    toc_float: yes
     html_preview: false
 always_allow_html: true
 ---
@@ -13,7 +15,7 @@ always_allow_html: true
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Loading Libraries
+# Loading Libraries
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -22,7 +24,7 @@ library(tibble)
 library(forcats)
 library(tidyverse)
 ```
-#Download Data
+# Download Data
 ```{r get-data}
 fn <- "mtsamples.csv"
 if (!file.exists(fn))
@@ -32,7 +34,7 @@ mtsamples <- read.csv(fn)
 mtsamples <- as_tibble(mtsamples)
 ```
 
-## Question 1: What specialties do we have?
+# Question 1: What specialties do we have?
 ```{r dist-of-specialties}
 specialties <- mtsamples %>%
   count(medical_specialty)
@@ -41,7 +43,7 @@ specialties %>%
   top_n(15) %>%
   knitr::kable()
 ```
-There are ` r nrow(specialties)` specialties. Let's take a look at the distribution
+There are `r nrow(specialties)` specialties. Let's take a look at the distribution
 
 
 ```{r}
@@ -55,7 +57,7 @@ ggplot(specialties, aes(x =n, y = fct_reorder(medical_specialty, n))) +
 The specialty categories are not uniformly distributed. 
 
 
-## Question 2
+# Question 2
 
 ```{r token-transcript, cache = TRUE}
 mtsamples %>%
@@ -70,7 +72,7 @@ mtsamples %>%
 
 The word "patient" seems ot be important which makes sense given the dataset. However we do observe a lot of stopwords. 
 
-## Question 3
+# Question 3
 ```{r nostop-token-transcript, cache = TRUE}
 mtsamples %>%
   unnest_tokens(output = word, input = transcription) %>%
@@ -86,7 +88,7 @@ mtsamples %>%
 ```
 Now that we have removed the stop words, we see that there are alot of interesting words, with patient being the top word as expected. We see that the text overall is about diagnosing, patient history, the procedure, and patient history which include things like past procedures informed, where the surgery was and where the incesion was, etc. 
 
-## Question 4
+# Question 4
 ```{r bigram-transcript, cache=TRUE}
 mtsamples %>%
   unnest_ngrams(output = bigram, input = transcription, n = 2) %>%
@@ -108,7 +110,7 @@ mtsamples %>%
 
 With trigrams, we start to see some of the phrases like "tolerated the procedure", "prepped and draped." This gives us more context into the dataset. 
 
-## Question 5
+# Question 5
 
 ```{r bigram-history-transcript, cache=TRUE}
 bigrams<- mtsamples %>%
@@ -147,7 +149,7 @@ bigrams %>%
 
 
 
-## Question 6
+# Question 6
 ```{r top-per-specialty}
 mtsamples %>%
   unnest_tokens(word, input=transcription) %>% 
@@ -159,8 +161,25 @@ mtsamples %>%
   knitr::kable()
 ```
 
+# Question 7
 
+```{r, cache=TRUE}
+ms_word <- mtsamples %>%
+  unnest_tokens(word, input=transcription) %>% 
+  group_by(medical_specialty) %>% 
+  count(word, sort = TRUE) %>%
+  filter(!(word %in% stop_words$word) & !grepl("^[0-9]+$", word)) %>%
+  arrange(medical_specialty,n)
 
-
+ artery_mentions <- ms_word %>%
+  filter(word == "artery") %>%
+  group_by(medical_specialty) %>%
+  arrange(word,n) %>%
+  top_n(20)
+  
+artery_mentions %>%
+   knitr::kable()
+```
+From the above table, we can see that the word **arteries** is associated with medical specialties like Cardiovascular/Pulmonary and Surgery heavily which is expected. The Cardiovascular/Pulmonary speciality had 1085 mentions while the Surgery category had 1078 mentions. Other professions will have to consider arteries, it is not the main concern when diagnosing and treating patients. 
 
 

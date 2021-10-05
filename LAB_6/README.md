@@ -3,7 +3,7 @@ LAB\_6
 Ram Ayyala
 10/3/2021
 
-\#Loading Libraries
+# Loading Libraries
 
 ``` r
 library(dplyr)
@@ -49,7 +49,7 @@ library(tidyverse)
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
-\#Download Data
+# Download Data
 
 ``` r
 fn <- "mtsamples.csv"
@@ -60,7 +60,7 @@ mtsamples <- read.csv(fn)
 mtsamples <- as_tibble(mtsamples)
 ```
 
-## Question 1: What specialties do we have?
+# Question 1: What specialties do we have?
 
 ``` r
 specialties <- mtsamples %>%
@@ -91,8 +91,7 @@ specialties %>%
 | Neurosurgery                  |   94 |
 | Hematology - Oncology         |   90 |
 
-There are `r nrow(specialties)` specialties. Let’s take a look at the
-distribution
+There are 40 specialties. Let’s take a look at the distribution
 
 ``` r
 #ggplot(mtsamples, aes(x=medical_specialty)) +
@@ -106,7 +105,7 @@ ggplot(specialties, aes(x =n, y = fct_reorder(medical_specialty, n))) +
 ![](LAB_6_files/figure-gfm/unnamed-chunk-2-1.png)<!-- --> The specialty
 categories are not uniformly distributed.
 
-## Question 2
+# Question 2
 
 ``` r
 mtsamples %>%
@@ -124,7 +123,7 @@ mtsamples %>%
 The word “patient” seems ot be important which makes sense given the
 dataset. However we do observe a lot of stopwords.
 
-## Question 3
+# Question 3
 
 ``` r
 mtsamples %>%
@@ -147,7 +146,7 @@ that the text overall is about diagnosing, patient history, the
 procedure, and patient history which include things like past procedures
 informed, where the surgery was and where the incesion was, etc.
 
-## Question 4
+# Question 4
 
 ``` r
 mtsamples %>%
@@ -180,7 +179,7 @@ With trigrams, we start to see some of the phrases like “tolerated the
 procedure”, “prepped and draped.” This gives us more context into the
 dataset.
 
-## Question 5
+# Question 5
 
 ``` r
 bigrams<- mtsamples %>%
@@ -285,7 +284,7 @@ bigrams %>%
 
 Words BEFORE history
 
-## Question 6
+# Question 6
 
 ``` r
 mtsamples %>%
@@ -512,3 +511,67 @@ mtsamples %>%
 | Urology                       | procedure    |  306 |
 | Urology                       | bladder      |  357 |
 | Urology                       | patient      |  776 |
+
+# Question 7
+
+``` r
+ms_word <- mtsamples %>%
+  unnest_tokens(word, input=transcription) %>% 
+  group_by(medical_specialty) %>% 
+  count(word, sort = TRUE) %>%
+  filter(!(word %in% stop_words$word) & !grepl("^[0-9]+$", word)) %>%
+  arrange(medical_specialty,n)
+
+ artery_mentions <- ms_word %>%
+  filter(word == "artery") %>%
+  group_by(medical_specialty) %>%
+  arrange(word,n) %>%
+  top_n(20)
+```
+
+    ## Selecting by n
+
+``` r
+artery_mentions %>%
+   knitr::kable()
+```
+
+| medical\_specialty            | word   |    n |
+|:------------------------------|:-------|-----:|
+| Letters                       | artery |    1 |
+| Physical Medicine - Rehab     | artery |    1 |
+| Bariatrics                    | artery |    2 |
+| Office Notes                  | artery |    2 |
+| Ophthalmology                 | artery |    2 |
+| Podiatry                      | artery |    2 |
+| Rheumatology                  | artery |    2 |
+| Pain Management               | artery |    3 |
+| Autopsy                       | artery |    5 |
+| Dentistry                     | artery |    6 |
+| Psychiatry / Psychology       | artery |    6 |
+| ENT - Otolaryngology          | artery |    7 |
+| Pediatrics - Neonatal         | artery |    7 |
+| Hematology - Oncology         | artery |   12 |
+| SOAP / Chart / Progress Notes | artery |   12 |
+| Urology                       | artery |   13 |
+| Endocrinology                 | artery |   16 |
+| Obstetrics / Gynecology       | artery |   26 |
+| Emergency Room Reports        | artery |   30 |
+| Orthopedic                    | artery |   31 |
+| Discharge Summary             | artery |   32 |
+| Neurosurgery                  | artery |   34 |
+| Gastroenterology              | artery |   61 |
+| General Medicine              | artery |   61 |
+| Nephrology                    | artery |   65 |
+| Neurology                     | artery |   90 |
+| Consult - History and Phy.    | artery |  159 |
+| Radiology                     | artery |  176 |
+| Surgery                       | artery | 1078 |
+| Cardiovascular / Pulmonary    | artery | 1085 |
+
+From the above table, we can see that the word **arteries** is
+associated with medical specialties like Cardiovascular/Pulmonary and
+Surgery heavily which is expected. The Cardiovascular/Pulmonary
+speciality had 1085 mentions while the Surgery category had 1078
+mentions. Other professions will have to consider arteries, it is not
+the main concern when diagnosing and treating patients.
