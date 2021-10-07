@@ -18,10 +18,17 @@ knitr::opts_chunk$set(echo = TRUE)
 # Download Data
 
 ```{r}
-library(data.table)
-library(tidyverse)
-library(ggpubr)
-install.packages("ggpubr")
+if (!require(tidyverse)) {
+  install.packages("tidyverse")}
+if (!require(data.table)) {
+  install.packages("data.table")}
+if (!require(Amelia)) {
+  install.packages("Amelia")}
+if (!require(ggpubr)) {
+  install.packages("ggpubr")}
+if (!require(leaflet)) {
+  install.packages("leaflet")}
+
 fn1 <- "chs_individual.csv"
 if (!file.exists(fn1))
   download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_individual.csv", destfile=fn1)
@@ -58,7 +65,6 @@ nrow(dat) == nrow(individual)
 
 # Impute Data with missing values
 ```{r}
-library(Amelia)
 #find out which columns have missing values
 idvars= c(names(which(!colSums(is.na(dat)) > 0)))
 c(names(which(colSums(is.na(dat)) > 0)))
@@ -143,8 +149,8 @@ dim(dat)
 ```
 ### Checking Headers and Footers 
 ```{r}
-head(dat)
-tail(dat)
+head(dat) %>% knitr::kable()
+tail(dat) %>% knitr::kable()
 ```
 ### Check Variable Names and Variable Types
 ```{r}
@@ -153,7 +159,7 @@ str(dat)
 
 ### Key Variables
 ```{r}
-summary(dat$bmi)
+summary(dat$bmi) 
 summary(dat$fev)
 summary(dat$smoke_gas_exposure)
 summary(dat$pm25_mass)
@@ -161,9 +167,9 @@ summary(dat$pm25_mass)
 # Part 1: Facet plot showing scatterplots with regression lines of BMI vs FEV by “townname”.
 ```{r}
 dat[!is.na(townname)] %>%
-  ggplot() +
-  geom_point(mapping=aes(x=bmi, y=fev, color=townname)) +
-  geom_smooth(mapping=aes(x=bmi, y=fev, color="white", method="lm")) +
+  ggplot(mapping=aes(x=bmi, y=fev, color=townname)) +
+  geom_point() +
+  geom_smooth(method="lm", color="black") +
   facet_wrap(~ townname) +
   labs(title = "BMI vs FEV by Town Name", x= "BMI", y="FEV")
 ```
@@ -226,11 +232,9 @@ The second figure displays the statistical summary chart for FEV by smoke/gas ex
 
 # Part 5: A leaflet map showing the concentrations of PM2.5 mass in each of the CHS communities.
 ```{r}
-library(leaflet)
-
-temp.pal <- colorFactor(palette ='Accent', domain=dat$pm25_mass)
-
-leaflet(dat) %>%
+temp.pal <- colorNumeric(palette ='Accent', domain=dat$pm25_mass)
+map <- dat [,.(townname,pm25_mass,lat,lon)]
+leaflet(map) %>%
   addProviderTiles('CartoDB.Positron') %>%
   addCircles(
     lat = ~lat, lng=~lon,
@@ -242,7 +246,7 @@ leaflet(dat) %>%
           title='Concentrations of PM2.5 mass in each of the CHS communities', opacity=1)
 ```
 
-The graph above is a leaflet graph that maps the concentrations of PM2.5 mass in each of the CHS communities, with the ranking legend displaying the different PM2.5 mass values for each community marked on the map. Each dot on the map corresponds to a CHS town name that is displayed when hoevered over. From the map we can see the that the greatest PM2.5 masses are centered around the Mira Loma, Riverside and Upland communities, with Mira Loma containing the highest PM2.5 mass of 29.97. This seems accurate as this area was riddled with fires in 2018, explaining the high PM2.5 masses. The lowest PM2.5 masses seem to lie in Lompoc community in the Santa Barbara Area. 
+The graph above is a leaflet graph that maps the concentrations of PM2.5 mass in each of the CHS communities, with the ranking legend displaying the different PM2.5 mass values for each community marked on the map. Each dot on the map corresponds to a CHS town name that is displayed when hoevered over. From the map we can see the that the greatest PM2.5 masses are centered around the Mira Loma, Riverside and Upland communities, with Mira Loma containing the highest PM2.5 mass. This seems accurate as this area was riddled with fires in 2018, explaining the high PM2.5 masses. The lowest PM2.5 masses seem to lie in Lompoc community in the Santa Barbara Area. 
 
 
 # Part 6: Choose a visualization to examine whether PM2.5 mass is associated with FEV.
@@ -255,7 +259,5 @@ dat[!is.na(pm25_mass) & !is.na(fev)] %>%
  
 p <- ggscatter(dat, x="pm25_mass", y="fev", add = "reg.line", add.params = list(color="blue", fill="lightgray"), conf.int = TRUE) 
 p + stat_cor(method = "pearson", label.x = 3, label.y = 30)
-
-#cor(dat$pm25_mass,dat$fev)
 ```
 From the 1st graph above, it is evident that there is no association bewteem PM2.5 mass and FEV. However, just to confirm that lack of association, I plotted the PM2.5 mass and FEV with a scatterplot that includes the Pearson Correlation Value and the p-value. This 2nd graph further confirms that there is no association bewteen PM2.5 mass and FEV as the Pearson Correlation was `r cor(dat$pm25_mass,dat$fev)`, meaning there is very little correlation or association between the two variables, which is confirmed by the p-value of 0.007 < 0.05, the standard significance level.  
