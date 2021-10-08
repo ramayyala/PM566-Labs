@@ -1,0 +1,18 @@
+---
+title: "Lab 7"
+author: "Ram Ayyala"
+date: "10/8/2021"
+output: 
+  github_document:
+  html_document:
+    toc: yes
+    toc_float: yes
+    html_preview: false
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Download the Data
