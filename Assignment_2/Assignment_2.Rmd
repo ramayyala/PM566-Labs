@@ -3,11 +3,11 @@ title: "Assignment_2"
 author: "Ram Ayyala"
 date: "10/4/2021"
 output: 
-  github_document:
   html_document:
     toc: yes
     toc_float: yes
     html_preview: false
+  github_document:
 always_allow_html: true
 ---
 
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 if (!require(tidyverse)) {
-  install.packages("tidyverse")}
+  install.packages("tidyverse")} 
 if (!require(data.table)) {
   install.packages("data.table")}
 if (!require(Amelia)) {
@@ -108,32 +108,36 @@ dat[smoke == 1 & gasstove ==1, smoke_gas_exposure := "Smoke and Gas Exposure"]
 dat[, .(
   FEV_avg=mean(fev, na.rm=TRUE),
   FEV_sd=sd(fev, na.rm=TRUE),
-  asmtha_avg=mean(asthma, na.rm=TRUE),
-  asmtha_sd=sd(asthma,na.rm=TRUE)
+  asthma_avg=mean(asthma, na.rm=TRUE),
+  asthma_sd=sd(asthma,na.rm=TRUE),
+  asthma_prop=length(asthma[is.na(asthma)==FALSE & asthma==1]) / length(asthma[is.na(asthma)==FALSE])
 ), by = "townname"] %>%
   knitr::kable( caption ="AVG and SD of FEV and Asthma by Town")
 
 dat[, .(
   FEV_avg=mean(fev, na.rm=TRUE),
   FEV_sd=sd(fev, na.rm=TRUE),
-  asmtha_avg=mean(asthma, na.rm=TRUE),
-  asmtha_sd=sd(asthma,na.rm=TRUE)
+  asthma_avg=mean(asthma, na.rm=TRUE),
+  asthma_sd=sd(asthma,na.rm=TRUE),
+  asthma_prop=length(asthma[is.na(asthma)==FALSE & asthma==1]) / length(asthma[is.na(asthma)==FALSE])
 ), by = "male"] %>%
   knitr::kable( caption ="AVG and SD of FEV and Asthma by Sex")
 
 dat[, .(
   FEV_avg=mean(fev, na.rm=TRUE),
   FEV_sd=sd(fev, na.rm=TRUE),
-  asmtha_avg=mean(asthma, na.rm=TRUE),
-  asmtha_sd=sd(asthma,na.rm=TRUE)
+  asthma_avg=mean(asthma, na.rm=TRUE),
+  asthma_sd=sd(asthma,na.rm=TRUE),
+  asthma_prop=length(asthma[is.na(asthma)==FALSE & asthma==1]) / length(asthma[is.na(asthma)==FALSE])
 ), by = "obesity_level"] %>%
   knitr::kable( caption ="AVG and SD of FEV and Asthma by Obesity Level")
 
 dat[, .(
   FEV_avg=mean(fev, na.rm=TRUE),
   FEV_sd=sd(fev, na.rm=TRUE),
-  asmtha_avg=mean(asthma, na.rm=TRUE),
-  asmtha_sd=sd(asthma,na.rm=TRUE)
+  asthma_avg=mean(asthma, na.rm=TRUE),
+  asthma_sd=sd(asthma,na.rm=TRUE),
+  asthma_prop=length(asthma[is.na(asthma)==FALSE & asthma==1]) / length(asthma[is.na(asthma)==FALSE])
 ), by = "smoke_gas_exposure"] %>%
   knitr::kable( caption ="AVG and SD of FEV and Asthma by Smoke & Gas Exposure")
   
@@ -163,6 +167,11 @@ summary(dat$bmi)
 summary(dat$fev)
 summary(dat$smoke_gas_exposure)
 summary(dat$pm25_mass)
+#Checking for missing values
+table(is.na(dat$bmi))
+table(is.na(dat$fev))
+table(is.na(dat$smoke_gas_exposure))
+table(is.na(dat$pm25_mass))
 ```
 # Part 1: Facet plot showing scatterplots with regression lines of BMI vs FEV by “townname”.
 ```{r}
@@ -171,22 +180,22 @@ dat[!is.na(townname)] %>%
   geom_point() +
   geom_smooth(method="lm", color="black") +
   facet_wrap(~ townname) +
-  labs(title = "BMI vs FEV by Town Name", x= "BMI", y="FEV")
+  labs(title = "BMI vs FEV by Town Name", x= "BMI", y="FEV (ml)")
 ```
 The figure above contains a scatter plot that details the relationship between BMI and Forced expiratory volume in 1 second (ml) (FEV) for each town in the data set, with the x-axis being the BMI values and the y-axis being the FEV values. Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the towns, BMI seems to have a positive association with. When comparing the graphs to each other, we see that the \Delta$FEV is greatest in the Upland area and the least in the Alpine area. 
 
 # Part 2: Stacked histograms of FEV by BMI category and FEV by smoke/gas exposure. Use different color schemes than the ggplot default.
 ```{r}
-dat[!is.na(fev) & !is.na(obesity_level) & !is.na(smoke_gas_exposure) ] %>%
+dat[!is.na(fev) & !is.na(obesity_level)] %>%
   ggplot() +
   geom_histogram(mapping=aes(x=fev, fill = obesity_level))+
-  labs(title = "FEV by BMI category", x= "FEV", y="Count") +
+  labs(title = "FEV by BMI category", x= "FEV (ml)", y="Count") +
   scale_fill_brewer(palette = "Spectral")
 
-dat[!is.na(fev) & !is.na(obesity_level) & !is.na(smoke_gas_exposure) ] %>%
+dat[!is.na(fev) & !is.na(smoke_gas_exposure) ] %>%
   ggplot() +
   geom_histogram(mapping=aes(x=fev, fill = smoke_gas_exposure))+
-  labs(title = "FEV by Smoke/Gas Exposure", x= "FEV", y="Count") +
+  labs(title = "FEV by Smoke/Gas Exposure", x= "FEV (ml)", y="Count") +
   scale_fill_brewer(palette = "Spectral")
 
 ```
@@ -199,7 +208,7 @@ The second figure displays the distribution of FEV by smoke/gas exposure categor
 ```{r}
 dat[!is.na(obesity_level) & !is.na(smoke_gas_exposure) ] %>%
   ggplot() +
-  geom_bar(mapping=aes(x=obesity_level, fill = smoke_gas_exposure))+
+  geom_bar(mapping=aes(x=obesity_level, fill = smoke_gas_exposure), position="dodge")+
   labs(title = "BMI by Smoke/Gas Exposure", x= "Obesity Level", y="Count") +
   scale_fill_brewer(palette = "Spectral")
 ```
@@ -260,4 +269,4 @@ dat[!is.na(pm25_mass) & !is.na(fev)] %>%
 p <- ggscatter(dat, x="pm25_mass", y="fev", add = "reg.line", add.params = list(color="blue", fill="lightgray"), conf.int = TRUE) 
 p + stat_cor(method = "pearson", label.x = 3, label.y = 30)
 ```
-From the 1st graph above, it is evident that there is no association bewteem PM2.5 mass and FEV. However, just to confirm that lack of association, I plotted the PM2.5 mass and FEV with a scatterplot that includes the Pearson Correlation Value and the p-value. This 2nd graph further confirms that there is no association bewteen PM2.5 mass and FEV as the Pearson Correlation was `r cor(dat$pm25_mass,dat$fev)`, meaning there is very little correlation or association between the two variables, which is confirmed by the p-value of 0.007 < 0.05, the standard significance level.  
+From the 1st graph above, it is evident that there is very little negative assocation to no association bewteem PM2.5 mass and FEV. However, just to confirm that lack of association, I plotted the PM2.5 mass and FEV with a scatterplot that includes the Pearson Correlation Value and the p-value. This 2nd graph further confirms that there is really no association bewteen PM2.5 mass and FEV as the Pearson Correlation was `r cor(dat$pm25_mass,dat$fev)`, meaning there is very little correlation or association between the two variables. We can say that there is a significant negative correlation, which is confirmed by the p-value of 0.007 < 0.05, the standard significance level, however, with this low of a correlation value, it can be treated as insignificant.   
