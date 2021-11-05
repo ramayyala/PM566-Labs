@@ -1,0 +1,215 @@
+---
+title: "Assignment_3"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+    html_preview: false
+  github_document: 
+  word_document: 
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# API's
+## Download the Data 
+```{r}
+library(data.table)
+library(stringr)
+library(rvest)
+library(xml2)
+library(httr)
+library(tidyverse)
+library(tidytext)
+library(tibble)
+library(forcats)
+```
+
+
+## Using the NCBI API, look for papers that show up under the term “sars-cov-2 trial vaccine.” Look for the data in the pubmed database, and then retrieve the details of the paper as shown in lab 7. How many papers were you able to find?
+```{r}
+# Downloading the website
+website <- xml2::read_html("https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2+trial+vaccine")
+
+# Finding the counts
+counts <- xml2::xml_find_first(website, "/html/body/main/div[9]/div[2]/div[2]/div[1]/div[1]/span")
+
+# Turning it into text
+counts <- as.character(counts)
+
+# Extracting the data using regex
+stringr::str_extract(counts, "[0-9,]+")
+stringr::str_replace(counts, "[^[:digit:]]+([[:digit:]]+),([[:digit:]]+)[^[:digit:]]+","\\1\\2")
+```
+I was able to find `r stringr::str_extract(counts, "[0-9,]+")` papers under the term "sars-cov-2 trial vaccine".
+
+## Using the list of pubmed ids you retrieved, download each papers’ details using the query parameter rettype = abstract. If you get more than 250 ids, just keep the first 250.
+
+```{r}
+query_ids <- GET(
+  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+  query = list(db = "pubmed",term= "sars-cov-2 trial vaccine",retmax=1000)
+)
+ids <- httr::content(query_ids)
+```
+
+```{r}
+# Turn the result into a character vector
+ids <- as.character(ids)
+
+# Find all the ids 
+ids <- stringr::str_extract_all(ids, "<Id>[[:digit:]]+</Id>")[[1]]
+
+# Remove all the leading and trailing <Id> </Id>. Make use of "|"
+ids <- stringr::str_remove_all(ids, "<Id>|</Id>")
+# Keep first 250 ids
+ids <- ids[1:250]
+#Get the Publications
+publications <- GET(
+  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+  query = list(
+    db = "pubmed",id=I(paste(ids,collapse=",")),retmax=1000,rettype="abstract"
+    )
+)
+
+# Turning the output into character vector
+publications <- httr::content(publications)
+publications_txt <- as.character(publications)
+```
+
+```{r}
+#University & Institute Case
+pub_char_list <- xml2::xml_children(publications)
+pub_char_list <- sapply(pub_char_list, as.character)
+
+#extracting abstracts
+abstracts <- str_extract(pub_char_list, "<Abstract>[[:print:][:space:]]+</Abstract>")
+abstracts <- str_remove_all(abstracts, "</?[[:alnum:]- =\"]+>")
+abstracts <- str_replace_all(abstracts, "[[:space:]]+", " ")
+
+#extracting titles
+titles <- str_extract(pub_char_list, "<ArticleTitle>[[:print:][:space:]]+</ArticleTitle>")
+titles <- str_remove_all(titles, "</?[[:alnum:]- =\"]+>")
+
+#extract jounal names
+journalname <- str_extract(pub_char_list, "<Title>[[:print:][:space:]]+</Title>")
+journalname <- str_remove_all(journalname, "</?[[:alnum:]- =\"]+>")
+journalname <- str_replace_all(journalname, "[[:space:]]+", " ")
+
+#extract publication date
+publication_date <- str_extract(pub_char_list, "<PubDate>[[:print:][:space:]]+</PubDate>")
+publication_date <- str_remove_all(publication_date, "</?[[:alnum:]- =\"]+>")
+publication_date <- str_replace_all(publication_date, "[[:space:]]+", " ")
+
+database <- data.frame(
+  PubMedId = ids,
+  Title = titles,
+  Journal_Name = journalname,
+  Publication_Date = publication_date,
+  Abstract = abstracts
+)
+knitr::kable(database, caption="SARS-COV2 Trial Vaccine Papers")
+```
+
+# Text Mining
+
+## Download Data
+```{r}
+fn <- "pubmed.csv"
+if (!file.exists(fn))
+  download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/03_pubmed/pubmed.csv", destfile=fn)
+
+pubmed <- read.csv(fn)
+pubmed <- as_tibble(pubmed)
+```
+## Tokenize the abstracts and count the number of each token. Do you see anything interesting? Does removing stop words change what tokens appear as the most frequent? What are the 5 most common tokens for each search term after removing stopwords?
+```{r}
+pubmed %>%
+  unnest_tokens(output = word, input = abstract) %>%
+  count(word, sort = TRUE) %>% 
+  top_n(20) %>%
+  ggplot (aes(x=n, y=fct_reorder(word,n)))+
+  geom_col(fill="red") +
+  labs(title = "Top 20 Most Common Tokens in Abstracts with Stopwords", y= "Tokens", x="Count")
+  
+```
+
+## Take out Stopwords
+```{r}
+pubmed %>%
+  unnest_tokens(output = word, input = abstract) %>%
+  count(word, sort = TRUE) %>% 
+  anti_join(stop_words, by ="word") %>%
+  #using regex to remove numbers 
+  filter(!grepl("^[0-9]+$",x=word)) %>%
+  top_n(5) %>%
+  ggplot (aes(x=n, y=fct_reorder(word,n)))+
+  geom_col(fill="red") +
+  labs(title = "Top 5 Most Common Tokens in Abstracts wihtout Stopword", y= "Tokens", x="Count")
+  
+```
+From the graph above, we see that the 5 most common tokens are covid, patients, cancer, prostate, and disease, which is different from the previous graph due to the removal of stop words. 
+
+```{r}
+pubmed %>%
+  unnest_tokens(output = word, input = abstract) %>%
+  anti_join(stop_words, by ="word") %>%
+  group_by(term) %>%
+  count(word) %>%
+  top_n(5,n) %>%
+  knitr::kable(caption = "The Top 5 Most Common Tokens for each search Term after Stopwords Removal")
+```
+From the Table above, we see that the top 5 tokens from each search term by count. For each search term, the top 5 highest tokens by count are as follows:<br />
+
+**covid**: 19,covid,disease,pandemic,patients<br />
+**cystic fibrosis**: cf, cystic, disease, fibrosis, patients<br />
+**meningitis**: clinical, csf, meningeal, meningitis, patients<br />
+**preeclampsia**: eclampsia, pre,preeclampsia,pegnancy,women<br />
+**prostate cancer**: cancer, disease, patients, prostate, treatment<br />
+
+
+## Tokenize the abstracts into bigrams. Find the 10 most common bigram and visualize them with ggplot2.
+```{r}
+pubmed %>%
+  unnest_ngrams(output = bigram, input = abstract, n = 2) %>%
+  count(bigram, sort = TRUE) %>% 
+  top_n(10) %>%
+  ggplot (aes(x=n, y=fct_reorder(bigram,n)))+
+  geom_col(fill="red")+
+  labs(title = "Top 10 Most Common Bigrams in Abstracts with Stopwords", y= "Bigrams", x="Count")
+```
+The 10 most common bigrams, as depicted in the graph above are, covid 19, of the, in the, prostate cancer, pre eclampsie, patients with, of covid, and the, to the, and of prostate. 
+
+## Calculate the TF-IDF value for each word-search term combination. (here you want the search term to be the “document”) What are the 5 tokens from each search term with the highest TF-IDF value? How are the results different from the answers you got in question 1?
+```{r}
+pubmed %>%
+  unnest_tokens(output = word, input = abstract) %>%
+  count(word,term) %>% 
+  bind_tf_idf(word,term,n) %>%
+  group_by(term) %>%
+  top_n(5,tf_idf) %>%
+  arrange(desc(tf_idf), .by_group = TRUE) %>%
+  knitr::kable(caption="Top 5 Tokens with the Highest TF-IDF Value")
+  
+```
+
+From the Table above, we see that the top 5 tokens from each search term with the highest TF-IDF value. For each search term, the top 5 highest tokens by TF-IDF values are as follows:<br />
+
+**covid**: covid, pandemic, coronavirus, sars, cov<br />
+**cystic fibrosis**: cf, fibrosis, cystic, cftr, sweat<br />
+**meningitis**: meningitis, meningeal, pachymeningitis, csf, meninges<br />
+**preeclampsia**: eclampsia, preeclampsia, pregnancy, maternal, gestational<br />
+**prostate cancer**: prostate, androgen, psa, prostatectomy, castration<br />
+
+When comparing the table from Problem 1 to this table, we see that for each search term, they shared the following terms:
+
+**covid**: covid, pandemic, cov<br />
+**cystic fibrosis**: cf, fibrosis, cystic<br />
+**meningitis**: meningitis, meningeal, csf<br />
+**preeclampsia**: eclampsia, preeclampsia, pregnancy<br />
+**prostate cancer**: prostate<br />
+
+From this, we can see that most search terms shared at least 3 tokens with the table from Problem 1, except for prostate cancer search term which only shared 1 token. This is probably due to the fact that we used a different ranking system in this table as we ordered by TF-IDF values rather than count values.  
