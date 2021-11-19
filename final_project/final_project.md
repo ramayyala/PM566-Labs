@@ -3,6 +3,8 @@ Final_Project
 Ram Ayyala
 10/22/2021
 
+# [Download Full Report](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf)
+
 # Introduction
 
 Heart Disease is a major problem people across the world, whether it be
@@ -105,9 +107,9 @@ data[, .(
 
 | Cholesterol Level | Minimum Cholesterol Level (mg/dl) | Maximum Cholesterol Level (mg/dl) | Number of Observations |
 |:------------------|----------------------------------:|----------------------------------:|-----------------------:|
-| Desirable         |                          16.59221 |                          199.7326 |                    116 |
-| Borderline High   |                         200.00000 |                          239.0000 |                    187 |
-| High              |                         240.00000 |                          603.0000 |                    289 |
+| Desirable         |                          10.43579 |                               199 |                    123 |
+| Borderline High   |                         200.00000 |                               239 |                    185 |
+| High              |                         240.00000 |                               603 |                    284 |
 
 Cholesterol Level Categories
 

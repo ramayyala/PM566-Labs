@@ -23,6 +23,8 @@ link-citations: yes
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# [Download Full Report](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf)
+
 # Introduction
 
 Heart Disease is a major problem people across the world, whether it be from minor heart problems all the way to life threatening heart conditions. Many heart diseases can be congenital, but many are also brought on by our lifestyle, such as eating habits. Cholesterol, is a substance found in nearly every cell of our body, but also found in many foods we ingest like meat and dairy products. Our body needs cholesterol in order to function correctly, but as saying goes "too much of something, is sometimes not good for you!" Too much cholesterol, or high cholesterol can lead individuals to have a higher risk of heart disease in the arteries. In this study, we will be using the UCI Heart Disease Dataset in order to determine whether patients suffering from heart disease due to the narrowing of the diameter of the arteries is associated with high cholesterol. 
