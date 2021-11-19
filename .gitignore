@@ -2,5 +2,14 @@
 .Rhistory
 .RData
 .Ruserdata
-met_all.gz
+
+#Data
+*.gz
 *.csv
+
+#MS Office files
+*.pptx
+*.ppt
+*.doc
+*.docx
+

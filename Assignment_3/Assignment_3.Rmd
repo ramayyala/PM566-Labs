@@ -111,7 +111,7 @@ database <- data.frame(
   Publication_Date = publication_date,
   Abstract = abstracts
 )
-knitr::kable(database, caption="SARS-COV2 Trial Vaccine Papers")
+knitr::kable(database[1:10,], caption="SARS-COV2 Trial Vaccine Papers")
 ```
 
 # Text Mining
