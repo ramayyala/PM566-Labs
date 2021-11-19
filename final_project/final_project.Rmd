@@ -3,12 +3,12 @@ title: "Final_Project"
 author: "Ram Ayyala"
 date: "10/22/2021"
 output:
+  github_document:
   html_document:
     toc: yes
     toc_float: yes
     html_preview: no
     citation_package: biblatex
-  github_document:
   word_document:
     citation_package: biblatex
   pdf_document:
@@ -22,8 +22,6 @@ link-citations: yes
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-# [Download Full Report](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf)
 
 # Introduction
 
@@ -373,7 +371,13 @@ The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol 
 # Conclusion
 Based on the preliminary results described above, we can conclude that there is not a high association between high cholesterol levels and the narrowing of the diameter of heart diseased patients. Based on location, it seems that patients with narrow arteries have a higher cholesterol count, especially in Hungary. However, by Cholesterol category Levels, it seems that there is no real difference in the cholesterol levels between all the cholesterol level categories and the angiographic disease status categories. 
 
+# Download Full Report
+[Click Here](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf)
+
 # References
 1. @Dua:2019 <br />
 2. @Cholesterol
+
+
+
   
