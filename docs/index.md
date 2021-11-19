@@ -1,9 +1,7 @@
-Final_Project
+Final\_Project
 ================
 Ram Ayyala
 10/22/2021
-
-# [Download Full Report](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf)
 
 # Introduction
 
@@ -35,19 +33,19 @@ years<br /> **sex:** (1 = male; 0 = female)<br /> **cp:** Chest pain
 type (0 = asymptomatic; 1 = atypical angina; 2 = non-anginal pain; 3 =
 typical angina) <br /> **trestbps:** Resting blood pressure (in mm Hg on
 admission to the hospital) <br /> **cholserum:** Cholestoral in mg/dl
-<br /> **fbs:** Fasting blood sugar \> 120 mg/dl (1 = true; 0 = false)
+<br /> **fbs:** Fasting blood sugar &gt; 120 mg/dl (1 = true; 0 = false)
 <br /> **restecg:** Resting electrocardiographic results (0= showing
 probable or definite left ventricular hypertrophy by Estes’ criteria; 1
 = normal; 2 = having ST-T wave abnormality (T wave inversions and/or ST
-elevation or depression of \> 0.05 mV)) <br /> **thalach:** Maximum
+elevation or depression of &gt; 0.05 mV)) <br /> **thalach:** Maximum
 heart rate achieved <br /> **exang:** Exercise induced angina (1 = yes;
 0 = no) <br /> **oldpeakST:** Depression induced by exercise relative to
 rest <br /> **slope:** The slope of the peak exercise ST segment (0 =
 downsloping; 1 = flat; 2 = upsloping) <br /> **ca:** Number of major
 vessels (0-4) colored by flourosopy <br /> **thal:** 1 = normal; 2 =
 fixed defect; 3 = reversable defect <br /> **num:** num: diagnosis of
-heart disease (angiographic disease status) <br /> – Value 0: \< 50%
-diameter narrowing <br /> – Value 1: \> 50% diameter narrowing <br />
+heart disease (angiographic disease status) <br /> – Value 0: &lt; 50%
+diameter narrowing <br /> – Value 1: &gt; 50% diameter narrowing <br />
 (in any major vessel: attributes 59 through 68 are vessels) <br />
 
 # Questions to be Addressed:
@@ -107,9 +105,9 @@ data[, .(
 
 | Cholesterol Level | Minimum Cholesterol Level (mg/dl) | Maximum Cholesterol Level (mg/dl) | Number of Observations |
 |:------------------|----------------------------------:|----------------------------------:|-----------------------:|
-| Desirable         |                          10.43579 |                               199 |                    123 |
-| Borderline High   |                         200.00000 |                               239 |                    185 |
-| High              |                         240.00000 |                               603 |                    284 |
+| Desirable         |                           49.0757 |                               199 |                    123 |
+| Borderline High   |                          200.0000 |                               239 |                    185 |
+| High              |                          240.0000 |                               603 |                    286 |
 
 Cholesterol Level Categories
 
@@ -280,6 +278,11 @@ count, especially in Hungary. However, by Cholesterol category Levels,
 it seems that there is no real difference in the cholesterol levels
 between all the cholesterol level categories and the angiographic
 disease status categories.
+
+# Download Full Report
+
+[Click
+Here](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf)
 
 # References
 
