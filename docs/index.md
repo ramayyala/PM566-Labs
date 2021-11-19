@@ -105,21 +105,16 @@ data[, .(
 
 | Cholesterol Level | Minimum Cholesterol Level (mg/dl) | Maximum Cholesterol Level (mg/dl) | Number of Observations |
 |:------------------|----------------------------------:|----------------------------------:|-----------------------:|
-| Desirable         |                           49.0757 |                               199 |                    123 |
-| Borderline High   |                          200.0000 |                               239 |                    185 |
-| High              |                          240.0000 |                               603 |                    286 |
+| Desirable         |                          5.416904 |                               199 |                    116 |
+| Borderline High   |                        200.000000 |                               239 |                    185 |
+| High              |                        240.000000 |                               603 |                    293 |
 
 Cholesterol Level Categories
 
 # Preliminary Results
 
-<br /> The figure above contains a scatter plot that details the
-relationship between Cholesterol Levels and Resting blood pressure for
-each location in the data set, with the x-axis being the Cholesterol
-Levels (mg/dl) and the y-axis being the Resting Blood pressure values
-(mmHg). Within each scatter plot lies a regression line. From the figure
-above, it is evident that across all of the locations, Cholesterol seems
-to have a positive association with Resting Blood Pressure.
+<br />
+<!--The figure above contains a scatter plot that details the relationship between Cholesterol Levels and Resting blood pressure for each location in the data set, with the x-axis being the Cholesterol Levels (mg/dl) and the y-axis being the Resting Blood pressure values (mmHg). Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the locations, Cholesterol seems to have a positive association with Resting Blood Pressure.-->
 
 ``` r
 data[!is.na(sick) & !is.na(cholesterol_level)] %>%

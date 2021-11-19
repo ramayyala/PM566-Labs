@@ -3,12 +3,12 @@ title: "Final_Project"
 author: "Ram Ayyala"
 date: "10/22/2021"
 output:
-  github_document:
   html_document:
     toc: yes
     toc_float: yes
     html_preview: no
     citation_package: biblatex
+  github_document:
   word_document:
     citation_package: biblatex
   pdf_document:
@@ -289,7 +289,7 @@ data[!is.na(location)] %>%
    scale_color_brewer(palette = "Spectral")
 ```
  <br />
-The figure above contains a scatter plot that details the relationship between Cholesterol Levels and Resting blood pressure for each location in the data set, with the x-axis being the Cholesterol Levels (mg/dl) and the y-axis being the Resting Blood pressure values (mmHg). Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the locations, Cholesterol seems to have a positive association with Resting Blood Pressure.
+<!--The figure above contains a scatter plot that details the relationship between Cholesterol Levels and Resting blood pressure for each location in the data set, with the x-axis being the Cholesterol Levels (mg/dl) and the y-axis being the Resting Blood pressure values (mmHg). Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the locations, Cholesterol seems to have a positive association with Resting Blood Pressure.-->
 
 
 ```{r}
