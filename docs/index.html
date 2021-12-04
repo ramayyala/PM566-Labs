@@ -1,59 +1,391 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<link rel="stylesheet" href="data:text/css,%0A%40font%2Dface%20%7B%0Afont%2Dfamily%3A%20octicons%2Dlink%3B%0Asrc%3A%20url%28data%3Afont%2Fwoff%3Bcharset%3Dutf%2D8%3Bbase64%2Cd09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM%2B8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB%2FaFGpk3jaTY6xa8JAGMW%2FO62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v%2Bk%2F0an2i%2BitHDw3v2%2B9%2BDBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3%2FI7AtxEJLtzzuZfI%2BVVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy%2FLt7Kc%2B0vWY%2FgAgIIEqAN9we0pwKXreiMasxvabDQMM4riO%2BqxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw%2Bymhce7vwM9jSqO8JyVd5RH9gyTt2%2BJ%2FyUmYlIR0s04n6%2B7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv%2FocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi%2BW2%2BMjCzMIDApSwvXzC97Z4Ig8N%2FBxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh%2F8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT%2BAEjAwuDFpBmA9KMDEwMCh9i%2Fv8H8sH0%2F4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9%2FlqYwOGZxeUelN2U2R6%2BcArgtCJpauW7UQBqnFkUsjAY%2FkOU1cP%2BDAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl%2BvvmM%2FbyA48e6tWrKArm4ZJlCbdsrxksL1AwWn%2FyBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO%2F%2FsdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd%2F89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF%2B9JOS0nbaaYDCQfwCJ7Au3AHj%2BLO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm%2BEBXuAbHmIMSRMs%2B4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL%2BhD7C1xoaHeLJSEao0FEW14ckxC%2BTU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13%2F%2Blm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl%2B9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O%2FAdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB%2F%2F%2FAA8AAQAAAAAAAAAAAAAAAAABAAAAAA%3D%3D%29%20format%28%27woff%27%29%3B%0A%7D%0Abody%20%7B%0A%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%0Atext%2Dsize%2Dadjust%3A%20100%25%3B%0Acolor%3A%20%23333%3B%0Afont%2Dfamily%3A%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20%22Segoe%20UI%22%2C%20Arial%2C%20freesans%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0Afont%2Dsize%3A%2016px%3B%0Aline%2Dheight%3A%201%2E6%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0A%7D%0Aa%20%7B%0Abackground%2Dcolor%3A%20transparent%3B%0A%7D%0Aa%3Aactive%2C%0Aa%3Ahover%20%7B%0Aoutline%3A%200%3B%0A%7D%0Astrong%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%202em%3B%0Amargin%3A%200%2E67em%200%3B%0A%7D%0Aimg%20%7B%0Aborder%3A%200%3B%0A%7D%0Ahr%20%7B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Aheight%3A%200%3B%0A%7D%0Apre%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0Acode%2C%0Akbd%2C%0Apre%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ainput%20%7B%0Acolor%3A%20inherit%3B%0Afont%3A%20inherit%3B%0Amargin%3A%200%3B%0A%7D%0Ahtml%20input%5Bdisabled%5D%20%7B%0Acursor%3A%20default%3B%0A%7D%0Ainput%20%7B%0Aline%2Dheight%3A%20normal%3B%0A%7D%0Ainput%5Btype%3D%22checkbox%22%5D%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0Apadding%3A%200%3B%0A%7D%0Atable%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%2Dspacing%3A%200%3B%0A%7D%0Atd%2C%0Ath%20%7B%0Apadding%3A%200%3B%0A%7D%0A%2A%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0A%7D%0Ainput%20%7B%0Afont%3A%2013px%20%2F%201%2E4%20Helvetica%2C%20arial%2C%20nimbussansl%2C%20liberationsans%2C%20freesans%2C%20clean%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%234078c0%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%2C%0Aa%3Aactive%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200%3B%0Amargin%3A%2015px%200%3B%0Aoverflow%3A%20hidden%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23ddd%3B%0A%7D%0Ahr%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ahr%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%2015px%3B%0Amargin%2Dbottom%3A%2015px%3B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%2030px%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%2021px%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%2011px%3B%0A%7D%0Ablockquote%20%7B%0Amargin%3A%200%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Aol%20ol%2C%0Aul%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Droman%3B%0A%7D%0Aul%20ul%20ol%2C%0Aul%20ol%20ol%2C%0Aol%20ul%20ol%2C%0Aol%20ol%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Dalpha%3B%0A%7D%0Add%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0Afont%3A%2012px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0A%7D%0A%2Eselect%3A%3A%2Dms%2Dexpand%20%7B%0Aopacity%3A%200%3B%0A%7D%0A%2Eocticon%20%7B%0Afont%3A%20normal%20normal%20normal%2016px%2F1%20octicons%2Dlink%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Ddecoration%3A%20none%3B%0Atext%2Drendering%3A%20auto%3B%0A%2Dwebkit%2Dfont%2Dsmoothing%3A%20antialiased%3B%0A%2Dmoz%2Dosx%2Dfont%2Dsmoothing%3A%20grayscale%3B%0A%2Dwebkit%2Duser%2Dselect%3A%20none%3B%0A%2Dmoz%2Duser%2Dselect%3A%20none%3B%0A%2Dms%2Duser%2Dselect%3A%20none%3B%0Auser%2Dselect%3A%20none%3B%0A%7D%0A%2Eocticon%2Dlink%3Abefore%20%7B%0Acontent%3A%20%27%5Cf05c%27%3B%0A%7D%0A%2Emarkdown%2Dbody%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%20%21important%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%20%21important%3B%0A%7D%0Aa%3Anot%28%5Bhref%5D%29%20%7B%0Acolor%3A%20inherit%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Eanchor%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%2Dright%3A%202px%3B%0Amargin%2Dleft%3A%20%2D18px%3B%0A%7D%0A%2Eanchor%3Afocus%20%7B%0Aoutline%3A%20none%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%201em%3B%0Amargin%2Dbottom%3A%2016px%3B%0Afont%2Dweight%3A%20bold%3B%0Aline%2Dheight%3A%201%2E4%3B%0A%7D%0Ah1%20%2Eocticon%2Dlink%2C%0Ah2%20%2Eocticon%2Dlink%2C%0Ah3%20%2Eocticon%2Dlink%2C%0Ah4%20%2Eocticon%2Dlink%2C%0Ah5%20%2Eocticon%2Dlink%2C%0Ah6%20%2Eocticon%2Dlink%20%7B%0Acolor%3A%20%23000%3B%0Avertical%2Dalign%3A%20middle%3B%0Avisibility%3A%20hidden%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%2C%0Ah2%3Ahover%20%2Eanchor%2C%0Ah3%3Ahover%20%2Eanchor%2C%0Ah4%3Ahover%20%2Eanchor%2C%0Ah5%3Ahover%20%2Eanchor%2C%0Ah6%3Ahover%20%2Eanchor%20%7B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%20%7B%0Avisibility%3A%20visible%3B%0A%7D%0Ah1%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%202%2E25em%3B%0Aline%2Dheight%3A%201%2E2%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah1%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah2%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%201%2E75em%3B%0Aline%2Dheight%3A%201%2E225%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah2%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%201%2E5em%3B%0Aline%2Dheight%3A%201%2E43%3B%0A%7D%0Ah3%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%201%2E25em%3B%0A%7D%0Ah4%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ah5%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%201em%3B%0Acolor%3A%20%23777%3B%0A%7D%0Ah6%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ap%2C%0Ablockquote%2C%0Aul%2C%0Aol%2C%0Adl%2C%0Atable%2C%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%204px%3B%0Apadding%3A%200%3B%0Amargin%3A%2016px%200%3B%0Abackground%2Dcolor%3A%20%23e7e7e7%3B%0Aborder%3A%200%20none%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%2Dleft%3A%202em%3B%0A%7D%0Aul%20ul%2C%0Aul%20ol%2C%0Aol%20ol%2C%0Aol%20ul%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Ali%3Ep%20%7B%0Amargin%2Dtop%3A%2016px%3B%0A%7D%0Adl%20%7B%0Apadding%3A%200%3B%0A%7D%0Adl%20dt%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%2016px%3B%0Afont%2Dsize%3A%201em%3B%0Afont%2Dstyle%3A%20italic%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Adl%20dd%20%7B%0Apadding%3A%200%2016px%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ablockquote%20%7B%0Apadding%3A%200%2015px%3B%0Acolor%3A%20%23777%3B%0Aborder%2Dleft%3A%204px%20solid%20%23ddd%3B%0A%7D%0Ablockquote%3E%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Ablockquote%3E%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Atable%20%7B%0Adisplay%3A%20block%3B%0Awidth%3A%20100%25%3B%0Aoverflow%3A%20auto%3B%0Aword%2Dbreak%3A%20normal%3B%0Aword%2Dbreak%3A%20keep%2Dall%3B%0A%7D%0Atable%20th%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Atable%20th%2C%0Atable%20td%20%7B%0Apadding%3A%206px%2013px%3B%0Aborder%3A%201px%20solid%20%23ddd%3B%0A%7D%0Atable%20tr%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Aborder%2Dtop%3A%201px%20solid%20%23ccc%3B%0A%7D%0Atable%20tr%3Anth%2Dchild%282n%29%20%7B%0Abackground%2Dcolor%3A%20%23f8f8f8%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Abackground%2Dcolor%3A%20%23fff%3B%0A%7D%0Acode%20%7B%0Apadding%3A%200%3B%0Apadding%2Dtop%3A%200%2E2em%3B%0Apadding%2Dbottom%3A%200%2E2em%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%2085%25%3B%0Abackground%2Dcolor%3A%20rgba%280%2C0%2C0%2C0%2E04%29%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Acode%3Abefore%2C%0Acode%3Aafter%20%7B%0Aletter%2Dspacing%3A%20%2D0%2E2em%3B%0Acontent%3A%20%22%5C00a0%22%3B%0A%7D%0Apre%3Ecode%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%20100%25%3B%0Aword%2Dbreak%3A%20normal%3B%0Awhite%2Dspace%3A%20pre%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0A%2Ehighlight%20%7B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0A%2Ehighlight%20pre%2C%0Apre%20%7B%0Apadding%3A%2016px%3B%0Aoverflow%3A%20auto%3B%0Afont%2Dsize%3A%2085%25%3B%0Aline%2Dheight%3A%201%2E45%3B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0A%2Ehighlight%20pre%20%7B%0Amargin%2Dbottom%3A%200%3B%0Aword%2Dbreak%3A%20normal%3B%0A%7D%0Apre%20%7B%0Aword%2Dwrap%3A%20normal%3B%0A%7D%0Apre%20code%20%7B%0Adisplay%3A%20inline%3B%0Amax%2Dwidth%3A%20initial%3B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Aoverflow%3A%20initial%3B%0Aline%2Dheight%3A%20inherit%3B%0Aword%2Dwrap%3A%20normal%3B%0Abackground%2Dcolor%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0Apre%20code%3Abefore%2C%0Apre%20code%3Aafter%20%7B%0Acontent%3A%20normal%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%2Dsize%3A%2011px%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Epl%2Dc%20%7B%0Acolor%3A%20%23969896%3B%0A%7D%0A%2Epl%2Dc1%2C%0A%2Epl%2Ds%20%2Epl%2Dv%20%7B%0Acolor%3A%20%230086b3%3B%0A%7D%0A%2Epl%2De%2C%0A%2Epl%2Den%20%7B%0Acolor%3A%20%23795da3%3B%0A%7D%0A%2Epl%2Ds%20%2Epl%2Ds1%2C%0A%2Epl%2Dsmi%20%7B%0Acolor%3A%20%23333%3B%0A%7D%0A%2Epl%2Dent%20%7B%0Acolor%3A%20%2363a35c%3B%0A%7D%0A%2Epl%2Dk%20%7B%0Acolor%3A%20%23a71d5d%3B%0A%7D%0A%2Epl%2Dpds%2C%0A%2Epl%2Ds%2C%0A%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%0A%2Epl%2Dsr%2C%0A%2Epl%2Dsr%20%2Epl%2Dcce%2C%0A%2Epl%2Dsr%20%2Epl%2Dsra%2C%0A%2Epl%2Dsr%20%2Epl%2Dsre%20%7B%0Acolor%3A%20%23183691%3B%0A%7D%0A%2Epl%2Dv%20%7B%0Acolor%3A%20%23ed6a43%3B%0A%7D%0A%2Epl%2Did%20%7B%0Acolor%3A%20%23b52a1d%3B%0A%7D%0A%2Epl%2Dii%20%7B%0Abackground%2Dcolor%3A%20%23b52a1d%3B%0Acolor%3A%20%23f8f8f8%3B%0A%7D%0A%2Epl%2Dsr%20%2Epl%2Dcce%20%7B%0Acolor%3A%20%2363a35c%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dml%20%7B%0Acolor%3A%20%23693a17%3B%0A%7D%0A%2Epl%2Dmh%2C%0A%2Epl%2Dmh%20%2Epl%2Den%2C%0A%2Epl%2Dms%20%7B%0Acolor%3A%20%231d3e81%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmq%20%7B%0Acolor%3A%20%23008080%3B%0A%7D%0A%2Epl%2Dmi%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Epl%2Dmb%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmd%20%7B%0Abackground%2Dcolor%3A%20%23ffecec%3B%0Acolor%3A%20%23bd2c00%3B%0A%7D%0A%2Epl%2Dmi1%20%7B%0Abackground%2Dcolor%3A%20%23eaffea%3B%0Acolor%3A%20%2355a532%3B%0A%7D%0A%2Epl%2Dmdr%20%7B%0Acolor%3A%20%23795da3%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmo%20%7B%0Acolor%3A%20%231d3e81%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%3A%2011px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20%7B%0Alist%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%20%7B%0Amargin%2Dtop%3A%203px%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20input%20%7B%0Amargin%3A%200%200%2E35em%200%2E25em%20%2D1%2E6em%3B%0Avertical%2Dalign%3A%20middle%3B%0A%7D%0A%3Achecked%2B%2Eradio%2Dlabel%20%7B%0Az%2Dindex%3A%201%3B%0Aposition%3A%20relative%3B%0Aborder%2Dcolor%3A%20%234078c0%3B%0A%7D%0A%2EsourceLine%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Acode%20%2Ekw%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Edt%20%7B%20color%3A%20%23ed6a43%3B%20%7D%0Acode%20%2Edv%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ebn%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Efl%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ech%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Est%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eco%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Eot%20%7B%20color%3A%20%230086b3%3B%20%7D%0Acode%20%2Eal%20%7B%20color%3A%20%23a61717%3B%20%7D%0Acode%20%2Efu%20%7B%20color%3A%20%2363a35c%3B%20%7D%0Acode%20%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%0Acode%20%2Ewa%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ecn%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Esc%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Evs%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Ess%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eim%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eva%20%7Bcolor%3A%20%23008080%3B%20%7D%0Acode%20%2Ecf%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eop%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ebu%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eex%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Epp%20%7B%20color%3A%20%23999999%3B%20%7D%0Acode%20%2Eat%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Edo%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Ean%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ecv%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ein%20%7B%20color%3A%20%23008080%3B%20%7D%0A">
-<style>
-body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+
+<meta name="author" content="Ram Ayyala" />
+
+<meta name="date" content="2021-10-22" />
+
+<title>Associatation Analysis bewteen Cholesterol and Heart Disease Patients</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
 }
 </style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
 <body>
 
-<h1 id="final_project">Final_Project</h1>
-<p>Ram Ayyala 10/22/2021</p>
-<h1 id="introduction">Introduction</h1>
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Associatation Analysis bewteen Cholesterol and Heart Disease Patients</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Associatation Analysis bewteen Cholesterol and Heart Disease Patients</h1>
+<h4 class="author">Ram Ayyala</h4>
+<h4 class="date">10/22/2021</h4>
+
+</div>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
 <p>Heart Disease is a major problem people across the world, whether it be from minor heart problems all the way to life threatening heart conditions. Many heart diseases can be congenital, but many are also brought on by our lifestyle, such as eating habits. Cholesterol, is a substance found in nearly every cell of our body, but also found in many foods we ingest like meat and dairy products. Our body needs cholesterol in order to function correctly, but as saying goes “too much of something, is sometimes not good for you!” Too much cholesterol, or high cholesterol can lead individuals to have a higher risk of heart disease in the arteries. In this study, we will be using the UCI Heart Disease Dataset in order to determine whether patients suffering from heart disease due to the narrowing of the diameter of the arteries is associated with high cholesterol.</p>
-<h2 id="data-set-information">Data Set Information</h2>
+<div id="data-set-information" class="section level2">
+<h2>Data Set Information</h2>
 <p>The data set in this study comes from the UCI Heart Disease Dataset, which contains samples from three specific areas around the world: Cleveland, Ohio in the USA, Long Beach, California in the USA, Zurich and Basel in Switzerland and finally Budapest, Hungary. Note that while the Switzerland dataset is processed in this analysis, it is essentially removed from the merged dataset as they did not have any cholesterol records in their dataset. This data set contains 14 different attributes, of which information is provided about each column below:<br /> <strong>age:</strong> Age in years<br /> <strong>sex:</strong> (1 = male; 0 = female)<br /> <strong>cp:</strong> Chest pain type (0 = asymptomatic; 1 = atypical angina; 2 = non-anginal pain; 3 = typical angina) <br /> <strong>trestbps:</strong> Resting blood pressure (in mm Hg on admission to the hospital) <br /> <strong>cholserum:</strong> Cholestoral in mg/dl <br /> <strong>fbs:</strong> Fasting blood sugar &gt; 120 mg/dl (1 = true; 0 = false) <br /> <strong>restecg:</strong> Resting electrocardiographic results (0= showing probable or definite left ventricular hypertrophy by Estes’ criteria; 1 = normal; 2 = having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of &gt; 0.05 mV)) <br /> <strong>thalach:</strong> Maximum heart rate achieved <br /> <strong>exang:</strong> Exercise induced angina (1 = yes; 0 = no) <br /> <strong>oldpeakST:</strong> Depression induced by exercise relative to rest <br /> <strong>slope:</strong> The slope of the peak exercise ST segment (0 = downsloping; 1 = flat; 2 = upsloping) <br /> <strong>ca:</strong> Number of major vessels (0-4) colored by flourosopy <br /> <strong>thal:</strong> 1 = normal; 2 = fixed defect; 3 = reversable defect <br /> <strong>num:</strong> num: diagnosis of heart disease (angiographic disease status) <br /> – Value 0: &lt; 50% diameter narrowing <br /> – Value 1: &gt; 50% diameter narrowing <br /> (in any major vessel: attributes 59 through 68 are vessels) <br /></p>
-<h1 id="questions-to-be-addressed">Questions to be Addressed:</h1>
+</div>
+</div>
+<div id="questions-to-be-addressed" class="section level1">
+<h1>Questions to be Addressed:</h1>
 <p>For this study, we are mainly interested in <strong>whether high cholesterol is associated with the narrowing of the diameter of the arteries in heart disease patient</strong>.</p>
 <p>Our sub priorities in the study is to see whether: <br /> <strong>1. Do certain locations have a higher instance of cholesterol levels in their patient samples?</strong> <br /> <strong>2. Do certain locations have a higher instance of the narrowing of the diameter of the arteries in their patient samples when compared to others?</strong> <br /> <strong>3. Is there an association between resting blood pressure and cholesterol levels?</strong><br /></p>
-<h1 id="methods">Methods</h1>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
 <p>I downloaded the processed datasets for each location from the <a href="https://archive.ics.uci.edu/ml/datasets/heart+Disease">UCI Heart Disease database</a>. From here, I took the data from each location, appended a location column to identify the location for each sample, and then merged the datasets into one data frame. Once merged, I imputed the missing data values using the Amelia library. After data imputation, I removed data that did not follow the angiographic disease status format described in their metadata document, and created a categorical variable for Cholesterol Levels following the <a href="https://integrisok.com/resources/on-your-health/2019/september/a-guide-to-healthy-cholesterol">U.S. Department of ehalth and Human Services guidelines</a>, in which they state that total cholesterol levels below 200 (mg/dl), between 200 to 239 (mg/dl) is borderline high, and 240 (mg/dl) or higher is deemed as having high cholesterol levels. After cleaning data, I followed the Exploratory Data Analysis (EDA) protocol to extract key variables and visualize the data to address the questions for the study.</p>
-<h1 id="analysis">Analysis</h1>
-<h1 id="create-cat-variable-cholesterol-level">Create cat variable cholesterol level</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt; 240 = high</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 200 to 239 = borderline high</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;200 is desirable </span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># based on US Department of Health and Human Services, Mayo Clinic and Cleveland Clinic Standards</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data[cholserum <span class="sc">&lt;</span> <span class="dv">200</span>, cholesterol_level <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;Desirable&quot;</span>]</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data[cholserum <span class="sc">&gt;=</span> <span class="dv">200</span> <span class="sc">&amp;</span> cholserum <span class="sc">&lt;</span> <span class="dv">240</span>, cholesterol_level <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;Borderline High&quot;</span>]</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data[cholserum <span class="sc">&gt;=</span> <span class="dv">240</span>, cholesterol_level <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;High&quot;</span>]</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>data[, .(</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_cholserum =</span> <span class="fu">min</span>(cholserum),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_cholserum =</span> <span class="fu">max</span>(cholserum),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">number_obv =</span> .N</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>), by <span class="ot">=</span> cholesterol_level] <span class="sc">%&gt;%</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names=</span> <span class="fu">c</span>(<span class="st">&quot;Cholesterol Level&quot;</span>, <span class="st">&quot;Minimum Cholesterol Level (mg/dl)&quot;</span>, <span class="st">&quot;Maximum Cholesterol Level (mg/dl)&quot;</span>, <span class="st">&quot;Number of Observations&quot;</span>), <span class="at">caption=</span><span class="st">&quot;Cholesterol Level Categories&quot;</span>)</span></code></pre></div>
+</div>
+<div id="analysis" class="section level1">
+<h1>Analysis</h1>
+</div>
+<div id="create-cat-variable-cholesterol-level" class="section level1">
+<h1>Create cat variable cholesterol level</h1>
+<pre class="r"><code># &gt; 240 = high
+# 200 to 239 = borderline high
+# &lt;200 is desirable 
+# based on US Department of Health and Human Services, Mayo Clinic and Cleveland Clinic Standards
+
+data[cholserum &lt; 200, cholesterol_level := &quot;Desirable&quot;]
+data[cholserum &gt;= 200 &amp; cholserum &lt; 240, cholesterol_level := &quot;Borderline High&quot;]
+data[cholserum &gt;= 240, cholesterol_level := &quot;High&quot;]
+
+data[, .(
+  min_cholserum = min(cholserum),
+  max_cholserum = max(cholserum),
+  number_obv = .N
+), by = cholesterol_level] %&gt;%
+  knitr::kable(col.names= c(&quot;Cholesterol Level&quot;, &quot;Minimum Cholesterol Level (mg/dl)&quot;, &quot;Maximum Cholesterol Level (mg/dl)&quot;, &quot;Number of Observations&quot;), caption=&quot;Cholesterol Level Categories&quot;)</code></pre>
 <table>
+<caption>Cholesterol Level Categories</caption>
+<colgroup>
+<col width="16%" />
+<col width="31%" />
+<col width="31%" />
+<col width="21%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Cholesterol Level</th>
@@ -65,90 +397,179 @@ body {
 <tbody>
 <tr class="odd">
 <td align="left">Desirable</td>
-<td align="right">45.47601</td>
+<td align="right">30.91632</td>
 <td align="right">199</td>
-<td align="right">119</td>
+<td align="right">117</td>
 </tr>
 <tr class="even">
 <td align="left">Borderline High</td>
 <td align="right">200.00000</td>
 <td align="right">239</td>
-<td align="right">185</td>
+<td align="right">190</td>
 </tr>
 <tr class="odd">
 <td align="left">High</td>
 <td align="right">240.00000</td>
 <td align="right">603</td>
-<td align="right">290</td>
+<td align="right">287</td>
 </tr>
 </tbody>
 </table>
-<p>Cholesterol Level Categories</p>
-<h1 id="preliminary-results">Preliminary Results</h1>
-<br />
-<!--The figure above contains a scatter plot that details the relationship between Cholesterol Levels and Resting blood pressure for each location in the data set, with the x-axis being the Cholesterol Levels (mg/dl) and the y-axis being the Resting Blood pressure values (mmHg). Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the locations, Cholesterol seems to have a positive association with Resting Blood Pressure.-->
-
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data[<span class="sc">!</span><span class="fu">is.na</span>(sick) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(cholesterol_level)] <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>cholserum, <span class="at">fill =</span> sick))<span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Cholesterol by Angiographic Disease Status&quot;</span>, <span class="at">x=</span> <span class="st">&quot;Cholesterol(mg/dl)&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="data:image/png;base64,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" /><!-- --> <br /> The figure above is a stacked histogram that displays the distribution of Cholesterol by Angiographic Disease Status. The figure displays the distribution of Cholesterol by Angiographic Disease Status categories, with the x-axis being the Cholesterol values and the y-axis being the count. From this stacked histogram, we can see that both categories for Angiographic Disease Status are slightly skewed right. Moreover, from this plot, we can see that the majority of the data set is made up of individuals in which less than 50% of their coronary arteries are narrowing, meaning they probably do not suffer from heart disease, while only a subset portion of the data set are individuals with greater than 50% of their coronary arteries being narrowed, i.e. they probably have heart disease.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_norm <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">mutate_each_</span>(<span class="fu">list</span>(<span class="sc">~</span><span class="fu">scale</span>(.) <span class="sc">%&gt;%</span> as.vector),<span class="at">vars =</span> <span class="fu">c</span>(<span class="st">&quot;cholserum&quot;</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_norm[<span class="sc">!</span><span class="fu">is.na</span>(location) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(cholserum)] <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">location=</span><span class="fu">fct_reorder</span>(location, cholserum, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>location, <span class="at">y=</span>cholserum, <span class="at">fill=</span>location))<span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot; Normalized Cholesterol (mg/dl) by Location&quot;</span>, <span class="at">x=</span> <span class="st">&quot;Location&quot;</span>, <span class="at">y=</span><span class="st">&quot; Normalized Cholesterol (mg/dl)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAHgCAMAAABNUi8GAAABgFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZpAAZrYzMzM6AAA6ADo6AGY6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kJA6kLY6kNtNTU1NTW5NTY5Nbo5NbqtNjqtNjshmAABmADpmAGZmOgBmOjpmOmZmOpBmZgBmZmZmkJBmkLZmkNtmtpBmtrZmtttmtv9uTU1uTW5uTY5ubo5ubqtujshuq6tuq+SOTU2OTW6OTY6Obk2Obm6ObquOjk2Ojo6OyP+QOgCQOjqQOmaQZgCQZjqQZmaQkDqQkLaQtpCQttuQ27aQ2/+Z1ZSrbk2rbm6rbo6rjk2ryKur5Mir5OSr5P+2ZgC2Zjq2kDq2kGa2tpC2ttu225C229u22/+2/9u2///Ijk3Ijm7I5KvI///bkDrbkGbbtmbbtpDb25Db27bb29vb2//b/7bb/9vb///kq27k5Kvk/+Tk///r6+vy8vL8jVn/tmb/yI7/25D/27b/29v/5Kv//7b//7///8j//9v//+T///9mP0aIAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAdSElEQVR4nO2djX8c11WGV45daZPSNC5SgrEaQctn5KQGOwkpUmiBJMKhgJYSqGtDtmkoiQTasl5XQqv915l75+ve3Zk5c2f2zBzrvM8vjrWzO7uvzz66d+6dr8ECAMEM+g4AQBUQFIgGggLRQFAgGggKRANBgWggKBANBAWiCRd0PNi2f1/sbtdeZ35468T8KX9+M//5X745GLz0VrJW0TsVvcPs958Qn5/+fPHdo4pXTpMXmkR2rVH2r7zY3SxeZ3yj6rO9iFVFAEU0EXTDfsNMgs6GA8vtMEGrJXHXGlXGHm3miexas5dTn9sKal4GQUNpIujAFjlU0Orn0+/+Yndw+78Wiy/3Bvs8gk4rX3ixu58nitca5dHaCwpCaSDojb+xnXws6PO9weDmY/uFjgc3PhtufzHc+OPFdDh4zRjxRdRbRw+zFnQat4778Xrfemze74vh4ObPMkHTDYjZ0K7x1Z5d3/0cI0229vzH0Qe8FS2N3nU7Xx6neby0lsH+KsyWYw4HG39kI1h900TxWlkTGgkarWDebmr+BflvqGNe+oHxm9gVkxrEEfP4SazPvpn8A0ExTQT9+aHp5O33M7UdcvRwfvjScHDry+G3owUbH5mlm7axjX1cEXSWrhe/5uZe1rOmX/avzIObe4nPzueYbjd/FL9fIujMT3Pir2WZDffN/4pimgjjTSdRvFbWul/svjSM3y5uS6cbR2lFUkGzD1xMvX9fFtG+5XQp/mC/6bengCaCPjHNmxU0qvBb5jsw+pkWLDLkrcUXsStmWdSIRT9tetugU/vqqNlb/DJ65mJ34+PF88NBJoHTjUbvGa3yi8Gm9znu2rPh7RP7AckGXro8TuOvlaVfjulEmB9uO4mStUaJf9HWx2+fzH9qXmcXjbz3TAJnHxj598XAVCitQbYN6hVt8yT6qWTTASwaCmo7YiOoLXz0VW0cxU2ffXyxG31zyZf7q8/+ejjwBJ0NoxdGfWzyVvFPyfusCGre0yxyP+fWibv2S3/4syxVvtxJk60Vv6e1yo85HWQRTHeeJ0rWGictpV0hDmX6+HwbPBM0/8AkiiWpQSboctFKt23BoqmgpoGIBbW90zRVwH4vccFHWVfsCRq1T2kHaLu5eHPO6UY9QdMu1v+cfO3FyPz92uM4Vb48TeOny97SjxkLaCOYSaY8UbLWNOmCEyPHSR+f9fCuoOkHJj8tFnkNHEH9WO4cG1immaCma/yKFDTqE7/9t//61a4r6Mh+26WC5tugv3jtcQ1BF780W6mmTV+LoGYKqo6gpo/PevhKQfMaQNBGNBQ06uS/s9TFr37z8TfhbYMmg3S3gYlnBJZH8Re7pqPOBfW7eG9U8Z8/igyKu/h0eZpmpYsvipl38XaSKU+0IujmIv0Vmg7+NJ9lq+ri8xoUdvEQlKKpoGYA6g+SigSNhgDP97KhjXEh/i6iTYSPF9FI5MaTqMu3s0Sr86DbThe/MkhK1p5Gw5bF/KdRmza2g+J0ebrm6iBpVNTQp6OiabxJmCZa2QY1mewgKXrqt7IevnSQNNt1a5BE9AdJEJSiqaBm22p7efpn6ZtPZ1EyQb9OFgz2k954O+nts2mmfE/SprsNuvQ52drJJ9imOXroLI/bvtVpJmvb0qZyNs00timyRCujeDM5NYgfjQf55GeyvgngTzPZCbaBG3F5mgmCUjQWNOmMZ3vuVPjSN28npD8exS2aJ6hdz+5wN1uRN3/ufEfPfzz09sXH39/S56Rr24n622bwtWdmbNLlqZD+WnbJcH8lpp2o/5PdTTPJ5CZamQfdjtR69XHyPnniXNDsA+P3NAmzGtiIX2fx81gQtAptRzOV2lC65zbfGe8yxex6N2gT1JkdSpkNvxFtyI7KjBsVGf18Dwd9dIM6QVePZso3ZIsoakCj4dKg/pEyoA36BF09HjTbkC2i6Oi8SOnba88FCtEnKHihgKBANBAUiAaCAtFAUCAaCApEEyLohBPed2+F1mhs0oUAQWm0RmOTLgQISqM1Gpt0IUBQGq3R2KQLAYLSaI3GJl0IEJRGazQ26UIgBL16tPP6cfqAsxhqLWiHekGfHiye3TlLHnAWQ60F7dAu6OV7nzuPOIuh1oJ2aBf0/P5Pki5+K6KTQAC4EILeO4gkRRcvFrSgZ4vLd9NREmcx1FrQDu2CXn4AQfVG47evBvQoHl281mjs8tWBEPTy4c4b2UCesxhqLWiHekE9OIuh1oJ2QFAXzmKotaAVW1tbjO/OJl0IEJRGbDQzOc1oKJt0IUBQGrHRIKgPXykmgi0QHA2C+vCVYiLYAsnRsA3qwVgLyRaojcYmXQgQlEZrNDbpQoCgNFqjsUkXAgSl0RqNTboQICiN1mhs0oUAQWm0RmOTLgQISqM1Gpt0IUBQGq3R2KQLAYLSaI3GJl0IEJRGazQ26UKAoDRao7FJFwIEpdEajU26ECAojdZobNKFAEFptEZjky4ECEqjNRqbdCFAUBqt0dikCwGC0miNxiZdCBCURms0NulCgKA0WqOxSRcCBKXRGo1NuhAgKI3WaGzShQBBSXhPnWwHBHXhLIZcQZlPPm8HBHXhLAYEbQQEdeEsBgRtBAR14SyGXEGxDdorEJRGazQ26UKAoDRao7FJFwIEpdEajU26EEIEBaBz0ILSaI3GJl0IEJRGazQ26UKAoDRao7FJFwIEpdEajU26ECAojdZobNKFAEFptEZjky4ECEqjNRqbdCFAUBqt0dikCwGC0miNxiZdCBCURms0NulCgKA0WqOxSRcCBKXRGo1NuhAgKI3WaGzShQBBabRGY5MuBAhKIzcabibrwVgLyRbIjYbbcfvwlWIi2ALB0SCoD18pJoItEBwNgvrwlWIi2ALJ0bAN6sFYC8kWqI3GJl0IEJRGazQ26UKAoDRyo6GL92CshWQL5EbDIMmHrxQTwRYIjgZBffhKMRFsgeBoENSHrxQTwRZIjoZtUA/GWki2QG00NulCgKA0WqOxSRcCBKXRGo1NuhAgKI3WaGzShQBBabRGY5MuBAhKozUam3QhQFAardHYpAsBgtJojcYmXQgQlEZrNDbpQoCgNFqjsUkXAino1aOD9EfOYqi1oB0QdHG6A0H7DlAOBD3/wfsQtO8ApeBgkatP/ynu4s2BXV3kAQFsKfhWCEFPH2AbVG40HA96fv8MgsqNBkFPdwwPkkd8pZgItkByNGyDYpppojcar3k1gaA0WqPxmlcT7Emi0RqNTboQICiN1mhs0oUAQWm0RmOTLgRP0PHAsl3yWs5iqLWgHZoEvdhNzRwPNo6KXstZDLUWtEORoBdvPsmXeg8yOIuh1oJ2KBK0BpzFUGtBOyCoC2cx1FrQDkWCRpugKTeK+vcFBBWIIkFrwFkMtRa0AvviPRhrIdkCudFUHc2ELr4UsdFUCWoYGzUvdvdLXstXiolgCwRH0yZoouYULaiP2GgQ1IevFBPBFkiOpm2QlHTxfeyL5y11O+QKqm6aaWrGSGWboJzFYO6s2gFBe0TINBMEbYYiQS92b50Qr2WsBQRthiJBF4vZsPxQUAtnMQT7CUH7ZKmLHw9KjgU1cBZDrQXtUCdoxPwQ00w+WqMxq1cPIYMkvRa0Q5eg+e74zcLXchZDrQXt0CVoNlE/Pyw0lLMYai1ohy5B812dxXs7OYuh1oJ2QFAXzmKotaAdugTN98WPCyftOYuh1oJ2KBM03Rc/xnnxLlqjdSIgBaaZaLRGY5MuBAhKozUam3QheIKavfE4J2kFrdG68I/EFbRk+jODsxhqLWiHLkHLT5eL4SyGWgvaoUvQ+SEELUJrNF7zauJtg5aeLgdAT2CQRKM1Whf+kfhdfOUB9RBUHroExSCpGK3ReM2rCQZJNFqj8ZpXE38b9JXKQRJnMdRa0A5dgqZH1GOQ5KM1WicCUmBfPInaM6LZpAsBglLovaYEm3Qh4DY0FBC0V7wbeSWDeNzIy0WyoNouvzjCrRALEO2nqgvYUvCVYiJZULnRIKgPXykmgi0QHA2C+vCVYiLYAsnRtG2DEjDWQrIFaqOxSRcCBKWRGw0tqAdjLSRbIDeaqm1Q3GmuFLHRVAlaA75STARbIDgaBPXhK8VEsAWSo6nbBh1X7UiCoPJQNorv8U5zgi2Qu6tTm6C4V2cRkg8WgaAenMWAoI1gDdaBfjTo4ikgaK9gkEQi2E91glbDWQzBgkqOpkvQPs+Ll9xMQVCX2cul98pcPH9c+XQThFxZRPSGHgR1qTBw3XIa/EFS9R25GWsBQZuhS9AeL9wAQZvRk6Dzw/h2menf9rKI2/Z+7s7Ts5c/Gg4G1b1ykKAUnMUQ7CcEXRbUXCs+/WO2C+224fjGEyOn8/RsGPXI45bXnJUiqGQLBEfrR1C7K2caC2n4zUm8PBE0e3q4377bX5kH3S/fEOUshmQLBEfrSVCjSGqixdwBbiMTNHnaurlWQUe3vtrdL7/XB2cxJFsgOJoMQS92N47cFpRL0GhTwmxNYF/8EoKj9SSoufKM08VbI6d5C+o+DUH5ERyt/0GS+WOMnA03jow97iBp7V382HTx3sEi5/d2dg4gqFiETDONoi3QTyI7R4NNb5pp3YLGdzt2/Lx893hx/vYxBJWKrn3xqzy7G/3vadqEchZDsgWCo+kStPiAZdOKLhZmT0+XuUAtrv93Qgp69ehB+iPnb6vkZkpwNE0t6Di7cIM7D3r5MPMTgspDk6CFh9ud3zvIH3AWQ7IFgqPpEnQVz0+tgko+jkWZoHam3j3a7nTHoHsUL/pIQGWCjjbN0VFj7It3gaA+vy5mzV5mLG2D2h1X2NXpAkF9+hXU7OeEoD6C/exZ0K2OBZ0fbpvd/iN08T5y/VQmqDm1ZHMxwgHLS0BQlz4FJeAsBgRtRC+Cbq0CQfsEgrpEgv7vMp0J2uM5SVotaIcyQfs8J0mrBe0QJ+jslcqzjO0J9CWnyhevKuaUD60WtOOFE9Q8XXKQPQRtitZobQSNd5nPXv2RbS+jRzd/7yh9ev7hUfK8bVHj5zeOZq98v6BxJc5JgqATvdFKBa0YxaeCjrbNuZ6zof3LPtrIBJ29apeMNxcX3z0yi8xlFae3vkxeXCHoyjlJENSgNVqpoHQLevHmE2OfeRT9MY9Ms5lug946MWaapfFL45WSF1cKWg1nMdRa0A6pgpq/IiUT50yTmQhqu/jDfXudOtOmjsy16szzELQ5WqO1ELS0BbVPj/bT1tOcSP9KvRa073t1arWgHVIFTbdBE+f8bVDTvzvPmys9GE//DS1oQ7RGayToMD6rLRnFJ85Fj77hbIOm43a7Z+jm3n46ioegzdAarVTQJvviiQnSUsTchkarBe14MY5mMpfC2Wh4BRwxN/LSakE7XgxB2yDmVohaLWgHBHXhLIZaC9qh65wkdPHFaI1WbEGfgmKQVIjWaMUW9CpoNZzFUGtBOyCoC2cx1FrQDl2DpGSeH7s6l9AardiCHgUtP9kjhrMYai1ohy5Be7zbsV4L2vHi7OpsipT7xau1oB39CPp/y3R1VmfpFH0MZzHUWtAORYLieNBStEYrtoASdGrP6Sg5eqlwaWXPjWkmGq3RGglq90aO4mORIWg3aI3WRFBztLxVLjlO+UZ6QpJzBLM91dg9I3mvnqB2ED8/LL3yDS+C7/iDaC7Vo/jsvOHkTI/xpjkZKZI0Ps/YnKAUn2rsnpFccqkRSy6oWcMwKh0pcf62qm2m2iGuBZ2mU+mJihdvPhlHam4nP+fn1Lnn09Xr4rPr1vZzAVutFrRDnKDxGcSJoPG5xbNXv7Y9/CA57yg51Tg5I9kuqCNoPkuP40GX0BqtiaDuNmhybvH8w49ePUl+ttpmpxoHtaAQtBSt0ZoI6o3i43OLF2NzBGd2nnFyqrF7RnKtbdD5YXocaOkFQjmLodaCdsgT1J0HTc4ttlezi382S+NTjVNB54d1R/HjpOHMTYWgMVqjlQra0774kT0z9GIXV1heQmu0Ygt6PJrJHg5acf4yZzHUWtAOXYJScBZDrQXtgKAunMVQa0E7cE6SC2cx1FrQDgjqwlkMtRa0A4K6cBZDrQXtgKAunMVQa0E7FA2ScER9KezRCma++aFjFVvQ5yg+uTZT2Y4n3i+J9d1bwS/o33XPiygorm5XDAR16fG0YwhaDAR1iQRdfTNcfrFPIKhLn4LGd5orPfaJ90tiffdWQFCXakHzWx6tCUwz0UBQFwgqDgjqUlPQ7C6I3v2Ok1OOv7V34/v7+flL9QUdR6uXHlAPQdk+4AUTtGIUvyKod7/j7JTj/cV02/wXKOjI3I67/CKMvF8S67u3AoIuCbr6Zkt3mvPP2vTu1pmecnzxvZN/rnPrpKVpJjPTdE2nmbj3zBRSM9o1EnS5BV2633F2yvH8w0++V+cSIYoEXTnVix8I6reg7t2Nx39Qp4dfmgc1Xfx1nQeFoJ0KajY3x1lPn2yDOqccx+d6Bgoaz4Ne09vQQNBOBTUD7u9kV7hJ73ecn3K8mP9VramoNU8zSd7Qg6DrEnSVOnuSliZHZ7drSbduQVduJc4PBO1Y0AZHM63e73hc8/bH/iDJTjC1GSRBUAi6XnxB7bHKEBSCWoot6FPQ7x6NBu2mmSCoJkF/3bWgu/vRMGuzdE9/nVJDUAi6VlYOWJ4N25yTBEGvvaAds3pE/fwQgkJQQxf+kWCaCYKWwSZdCISglw937pylD+qUGoJC0LXiXgI8PTU+7+KvHh0sTu+mj+qUGoJC0LVS3YJevvf54vydz5NHdUoNQSHoWqkW9Pz+2eLy3ePoJ7PDtcbb9SJovX9pL4LWjNaHoPWi9U71pW+e3UkFNdRpC/oQtGYz1YegNaP1AR2rcxmLqNuCGuqUGoJC0LWiaBtUpgU2Wh9dPB2L374aeIJmZzylC64ePbg+o3gI+qILOj/cnh/ue1e3wzxoJ108BC1leVdncve6QuqUGoJC0LWycjTTJg63g6AxnQhI4V+4wdrZ5l6dEBSCrhdPUHObzlH5vebqlBqCQtC1gqOZIGgZbNKFAEEhaBls0oVQPQ/qU6fUEBSCrhV/HrTsunYxdUoNQSHoWim4iUIpdUoteHcNBH3RBZ0fQlAImsNrXk28bdDSKfqYOqVGFw9B1woGSRC0jC78I1k6WKTytXVKDUEh6FpZ9yAJgkLQtbLuQRIEhaBrxd8Grb7/Up1SQ1AIulaWLr94nQdJgmfAIGgpevbFNwf3SeoRPdugzYGgPaJnFN8cCNojS/dJqrz3V51SQ9AmHyBz85jXvJroGSQ1h/0DmsMarRMBKfTcJ6k5ELRHcL94Gq3R2KQLYeV+8df2VojN0RqNXb46+IMks/V5XW8m2xyt0TrQj6Zgmuma3o67OVqjdaAfDQSl0RqtA/1o0MXTaI3WgX40GCTRaI3GLl8dMM1EozUam3QhQFAardHYpAuh+iYKPpzFUGtBOxQJmjEq3QjlLIZaC9qhT9CL3dKrL0JQeagTdDqoPuKOD8E3lkK0HvEFHQ2qLh/G+duqtplqh64WdH44qDyknrMYai1ohypBZ8PqSzNBUHloEnRc2b0bOIuh1oJ2KBIU86ClaI3WlYOVYE8SjdZobNKFAEFptEZjky4ECEqjNRqbdCFAUBqt0dikCwGC0miNxiZdCBCURms0NulCgKA0WqOxSRcCBKXRGo1NuhAgKI3WaGzShQBBabRGY5MuBAhKozUam3QhQFAardHYpAsBgtJojcYmXQgQlEZrNDbpQoCgNFqjsUkXAgSl0RqNTboQICiN1mhs0oUAQWm0RmOTLgQISqM1Gpt0IUBQGq3R2KQLAYLSaI3GJl0IEJRGazQ26UKAoDRao7FJF4IYQXnfvRUQtEcgKA0E7REISgNBewSC0kDQHoGgNBC0RyAoDQTtEQhKA0F7BILSQNAeIQQ9v7ezc5A+4CyGZEEFR9Mu6OW7x4vzt4+TR5zFkGyB4GjaBX12N/rf07QJ5SyGZAsER9MuqMG0oovFVgR/GhDI9f9OSEGvHj1If+T8bZXcTAmOprkFfbqzE3Xwlw8zPyGoPDQLajm/d5A/4CyGZAsER9MuqOcnBJWHdkFPdwwYxYtFu6A+nMWQbIHgaBDUhbMYki0QHA2CunAWY2tL7h5vCNojQgQ1+wHEGgpBewSC0kDQHoGgNBC0R4QIim3QZkBQF8ZaoAVtBgR1YawFBG0GazQ26UKAoDQQtEeECIpt0GZAUBfOYqi1oB0Q1IWzGGotaAcEdeEshloL2gFBXTiLodaCdkBQF85iqLWgHRDUhbMYai1oBe/cB5t0IUBQGrHRmGeP2aQLAYLSiI0GQX34SjERbIHgaBDUh68UE8EWSI6GbVAPxlpItkBtNDbpQoCgNFqjsUkXAgSl0RqNTboQICiN1mhs0oUAQWm0RmOTLgQISqM1Gpt0IUBQGq3R2KQLAYLSaI3GJl0IEJRGazQ26UKAoDRao7FJFwIEpdEajU26ECAojdZobNKFAEFptEZjky4ECEqjNRqbdCGECApA56AFpdEajU26ECAojdZobNKFAEFptEZjky4ECEqjNRqbdCFAUBqt0dikCwGC0miNxiZdCBCURm40nNXpwVgLyRbIjYbz4n34SjERbIHgaBDUh68UE8EWCI4GQX34SjERbIHkaNgG9WCshWQL1EZjky4ECEqjNRqbdCFAUBqt0dikCwGC0miNxiZdCBCURms0NulCgKA0WqOxSRcCBKXRGo1NuhAgKI3WaGzShQBBabRGY5MuBAhKozUam3QhQFAardHYpAsBgtJojcYmXQgQlEZrNDbpQoCgNFqjsUkXAgSl0RqNTboQxFz6ZqvvAOUgWo9AUBpE6xEISoNoPQJBaRCtR8QICkAREBSIBoIC0UBQIBoICkTTlaDn73xe+fS9nYiDJquui2dRgDtnJZ9WuPTqUXFgDuIAHZVCElIENU+fv33cYNU1cfpG9ClP75xBUFl0Lejlw53IhPP7P7HtZfTod/7iOH366tPj5HnbosbPv358/s4PyxrX9XH5rokRKWeS2BDn989MoiRwtDTO5EZ/vwdBbZLoL7+CSbYfvP/GD03Es85ysdO1oE8fLJ5FzdQ9+5d99HomqClstOT0rtUlWmSaqGd3/jt5MSvZB5gkNoT5dYkSxYGipUkmNzr7r03OiqBeBbNsUb0emP+uDx0Levne58a+pMrmkfEg3Qa9c2YqbZbGL837Nfa+7dndPGgS4jRS80Hycx7fjd5lF28LZBr2RNDlCqbZLj84+/fCLaUXlI4FNX9FBc36qbNUUNvFPzqIeqydHdOmPt1JetmOBM26RfOtxyHO7/+P7eHtz+bzny4JsnjaYwu6VMEs29Wn//jBNerhxbSg9umnB2nr+fAgs6AbQd1t0CTE1af/cP8s+dlqe7DcdPUxSCpsQd16nf7lderh+9oGTZzzt0GNJM7zbx8bA87f+Y8uBPVG8XGIxenOAydwksmN3sc2qCnSadaQJxV0spXNhbyodCao3Ya6u3AGxfFw+XedbdB03B7psmPHyMkovgtB3XnQJIT9quOfzdI4U5rm6lE/o3gT48+zTeG0gnm2xdXfX6upqN73JCmc2lszSxU8/7O+grDQq6BRK2SbKtCU1QqeXrOC9t6CAlAFBAWigaBANBAUiAaCAtFA0Jj54Xb1C54/XsxePuomDMiBoDGUoJCzJyBoDAQVCgSNyQSdHw4Gm87fs+FgMNg2/982kiaLZy9/FC3Z7zOxEiBoTCro/HAz+3Oxu2//LMY3nhg5oz/pU7PhrROzuOfUCoCgMamgUyPdNBbS8JuThe3fE0Gzp4f76PY7AYLGZIJGLWNmYrwk6uI3MkGTp62bELQDIGhMmaAXuxtHbgsKQTsGgsZkgkY+ul28NXKat6Du0xC0AyBoTNEgyfwxRs6GG0dmsOQOkiBoR0DQGDN9ZOaTVqaZRtEW6CeRnaPBpjfNBEG7AYIC0UBQIBoICkQDQYFoICgQDQQFooGgQDQQFIgGggLRQFAgmv8Hqt/oBzeDbDEAAAAASUVORK5CYII=" /><!-- --> <br /> The graph above depicts a boxplot of Normalized Cholesterol (mg/dl) by Location, with the x-axis being the Location from which the samples were obtained from and the y-axis being the the normalized cholesterol levels. From the graph, we can see that the median normalized cholesterol for Hungary and Cleveland are quite similar, while the Long Beach dataset seems to have a much lower median than the rest. Moreover, it seems that the distributions of Cleveland and Long Beach are quite similar, while Hungary seems to have a slightly larger distribution.</p>
+</div>
+<div id="preliminary-results" class="section level1">
+<h1>Preliminary Results</h1>
+<p><br /> <!--The figure above contains a scatter plot that details the relationship between Cholesterol Levels and Resting blood pressure for each location in the data set, with the x-axis being the Cholesterol Levels (mg/dl) and the y-axis being the Resting Blood pressure values (mmHg). Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the locations, Cholesterol seems to have a positive association with Resting Blood Pressure.--></p>
+<pre class="r"><code>f1&lt;- data[!is.na(sick) &amp; !is.na(cholesterol_level)] %&gt;%
+  ggplot() +
+  geom_histogram(mapping=aes(x=cholserum, fill = sick))+
+  labs(title = &quot;Cholesterol by Angiographic Disease Status&quot;, x= &quot;Cholesterol(mg/dl)&quot;, y=&quot;Count&quot;) +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p><br /> The figure above is a stacked histogram that displays the distribution of Cholesterol by Angiographic Disease Status. The figure displays the distribution of Cholesterol by Angiographic Disease Status categories, with the x-axis being the Cholesterol values and the y-axis being the count. From this stacked histogram, we can see that both categories for Angiographic Disease Status are slightly skewed right. Moreover, from this plot, we can see that the majority of the data set is made up of individuals in which less than 50% of their coronary arteries are narrowing, meaning they probably do not suffer from heart disease, while only a subset portion of the data set are individuals with greater than 50% of their coronary arteries being narrowed, i.e. they probably have heart disease.</p>
+<pre class="r"><code>data_norm &lt;- data %&gt;% mutate_each_(list(~scale(.) %&gt;% as.vector),vars = c(&quot;cholserum&quot;))</code></pre>
+<pre><code>## Warning: `mutate_each_()` was deprecated in dplyr 0.7.0.
+## Please use `across()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<pre class="r"><code>f2&lt;-data_norm[!is.na(location) &amp; !is.na(cholserum)] %&gt;%
+  mutate(location=fct_reorder(location, cholserum, na.rm=TRUE)) %&gt;%
+  ggplot() +
+  geom_boxplot(mapping=aes(x=location, y=cholserum, fill=location))+
+  labs(title = &quot; Normalized Cholesterol (mg/dl) by Location&quot;, x= &quot;Location&quot;, y=&quot; Normalized Cholesterol (mg/dl)&quot;) +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p><br /> The graph above depicts a boxplot of Normalized Cholesterol (mg/dl) by Location, with the x-axis being the Location from which the samples were obtained from and the y-axis being the the normalized cholesterol levels. From the graph, we can see that the median normalized cholesterol for Hungary and Cleveland are quite similar, while the Long Beach dataset seems to have a much lower median than the rest. Moreover, it seems that the distributions of Cleveland and Long Beach are quite similar, while Hungary seems to have a slightly larger distribution.</p>
 <p><br /> The graph above depicts a bar chart of Location by Cholesterol Level, with the x-axis being the Location from which the samples were obtained from and the y-axis being the count. From the graph, we can see that the majority of each location is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each location, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data[<span class="sc">!</span><span class="fu">is.na</span>(sick) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(cholserum)] <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cholesterol_level=</span><span class="fu">fct_reorder</span>(cholesterol_level, cholserum, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>sick, <span class="at">fill =</span>cholesterol_level), <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>)<span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Angiographic Disease Status by Cholesterol Level&quot;</span>, <span class="at">x=</span> <span class="st">&quot;Angiographic Disease Status&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --> <br /> The graph above depicts a bar chart of Angiographic Disease Status by Cholesterol Level, with the x-axis being the the angiographic disease status of the samples and the y-axis being the count. From the graph, we can see that the majority of disease status is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each angiographic disease status, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data[<span class="sc">!</span><span class="fu">is.na</span>(sick) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(cholserum)] <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">location=</span><span class="fu">fct_reorder</span>(location, cholserum, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>sick, <span class="at">y=</span>cholserum, <span class="at">fill=</span>location))<span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Angiographic Disease Status vs Cholesterol (mg/dl) by Location&quot;</span>, <span class="at">x=</span> <span class="st">&quot;Angiographic Disease Status&quot;</span>, <span class="at">y=</span><span class="st">&quot;Cholesterol (mg/dl)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">240</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Location, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl), and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, Hungary make up a majority of the samples. However, the median for each location between each disease status differs a bit. In the disease status in which patients had less than 50% diameter narrowing of their coronary arteries, the medians between the locations is about the same. But in the disease status in which patients coronary arteries had greater than 50% diameter narrowing, the median for Hungary in their cholesterol levels is higher than both Cleveland and Long Beach. Overall, the patients from all locations that had greater than 50% diameter narrowing of their coronary arteries had higher cholesterol levels than those patients with less than 50% diameter narrowing of their coronary arteries. From this plot, we can infer that it seems patients with a disease status of having their coronary arteries more than 50% diameter narrowing have higher cholesterol levels than the disease status group with less than 50% coronary artery diameter narrowing. Meaning, that patients with heart disease tended to have higher cholesterol levels than those without. This makes sense since high cholesterol is thought of as a risk factor for heart disease, as high cholesterol will cause fatty deposits to develop in the blood vessels. When these fatty deposits grow, it causes blockages, causing a narrowing of the arteries, making it very hard to pump blood through the arteries, i.e. causing heart disease.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data[<span class="sc">!</span><span class="fu">is.na</span>(sick) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(cholserum)] <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cholesterol_level=</span><span class="fu">fct_reorder</span>(cholesterol_level, cholserum, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>sick, <span class="at">y=</span>cholserum, <span class="at">fill=</span>cholesterol_level))<span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level&quot;</span>, <span class="at">x=</span> <span class="st">&quot;Angiographic Disease Status&quot;</span>, <span class="at">y=</span><span class="st">&quot;Cholesterol (md/dl)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">240</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl),and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, patients with high cholesterol make up the majority of the samples. From the last figure we saw that there was a difference in the cholesterol levels and the angiographic disease status. However, with looking at this graphic, we see that the median cholesterol values for each cholesterol level category, are nearly the same between both angiographic disease status categories and in between the cholesterol level categories. This points towards the idea that potentially high cholesterol is not necessarily highly associated with heart disease or in this case, the narrowing of the diameter of the arteries.</p>
-<h1 id="conclusion">Conclusion</h1>
+<pre class="r"><code>f3 &lt;- data[!is.na(sick) &amp; !is.na(cholserum)] %&gt;%
+  mutate(cholesterol_level=fct_reorder(cholesterol_level, cholserum, na.rm=TRUE)) %&gt;%
+  ggplot() +
+  geom_bar(mapping=aes(x=sick, fill =cholesterol_level), position=&quot;dodge&quot;)+
+  labs(title = &quot;Angiographic Disease Status by Cholesterol Level&quot;, x= &quot;Angiographic Disease Status&quot;, y=&quot;Count&quot;) +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p><br /> The graph above depicts a bar chart of Angiographic Disease Status by Cholesterol Level, with the x-axis being the the angiographic disease status of the samples and the y-axis being the count. From the graph, we can see that the majority of disease status is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each angiographic disease status, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable.</p>
+<pre class="r"><code>data[!is.na(sick) &amp; !is.na(cholserum)] %&gt;%
+  mutate(location=fct_reorder(location, cholserum, na.rm=TRUE)) %&gt;%
+  ggplot() +
+  geom_boxplot(mapping=aes(x=sick, y=cholserum, fill=location))+
+  labs(title = &quot;Angiographic Disease Status vs Cholesterol (mg/dl) by Location&quot;, x= &quot;Angiographic Disease Status&quot;, y=&quot;Cholesterol (mg/dl)&quot;) +
+  scale_fill_brewer(palette = &quot;Spectral&quot;) +
+  geom_hline(yintercept = 240, color=&quot;red&quot;)</code></pre>
+<p><img src="final_project_files/figure-html/unnamed-chunk-20-1.png" width="672" /> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Location, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl), and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, Hungary make up a majority of the samples. However, the median for each location between each disease status differs a bit. In the disease status in which patients had less than 50% diameter narrowing of their coronary arteries, the medians between the locations is about the same. But in the disease status in which patients coronary arteries had greater than 50% diameter narrowing, the median for Hungary in their cholesterol levels is higher than both Cleveland and Long Beach. Overall, the patients from all locations that had greater than 50% diameter narrowing of their coronary arteries had higher cholesterol levels than those patients with less than 50% diameter narrowing of their coronary arteries. From this plot, we can infer that it seems patients with a disease status of having their coronary arteries more than 50% diameter narrowing have higher cholesterol levels than the disease status group with less than 50% coronary artery diameter narrowing. Meaning, that patients with heart disease tended to have higher cholesterol levels than those without. This makes sense since high cholesterol is thought of as a risk factor for heart disease, as high cholesterol will cause fatty deposits to develop in the blood vessels. When these fatty deposits grow, it causes blockages, causing a narrowing of the arteries, making it very hard to pump blood through the arteries, i.e. causing heart disease.</p>
+<pre class="r"><code>data[!is.na(sick) &amp; !is.na(cholserum)] %&gt;%
+  mutate(cholesterol_level=fct_reorder(cholesterol_level, cholserum, na.rm=TRUE)) %&gt;%
+  ggplot() +
+  geom_boxplot(mapping=aes(x=sick, y=cholserum, fill=cholesterol_level))+
+  labs(title = &quot;Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level&quot;, x= &quot;Angiographic Disease Status&quot;, y=&quot;Cholesterol (md/dl)&quot;) +
+  scale_fill_brewer(palette = &quot;Spectral&quot;) +
+  geom_hline(yintercept = 240, color=&quot;red&quot;)</code></pre>
+<p><img src="final_project_files/figure-html/unnamed-chunk-21-1.png" width="672" /> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl),and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, patients with high cholesterol make up the majority of the samples. From the last figure we saw that there was a difference in the cholesterol levels and the angiographic disease status. However, with looking at this graphic, we see that the median cholesterol values for each cholesterol level category, are nearly the same between both angiographic disease status categories and in between the cholesterol level categories. This points towards the idea that potentially high cholesterol is not necessarily highly associated with heart disease or in this case, the narrowing of the diameter of the arteries.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
 <p>Based on the preliminary results described above, we can conclude that there is not a high association between high cholesterol levels and the narrowing of the diameter of heart diseased patients. Based on location, it seems that patients with narrow arteries have a higher cholesterol count, especially in Hungary. However, by Cholesterol category Levels, it seems that there is no real difference in the cholesterol levels between all the cholesterol level categories and the angiographic disease status categories.</p>
-<h1 id="download-full-report">Download Full Report</h1>
+</div>
+<div id="download-full-report" class="section level1">
+<h1>Download Full Report</h1>
 <p><a href="https://github.com/ramayyala/PM566-Labs/raw/master/final_project/final_project.pdf">Click Here</a></p>
-<h1 id="references">References</h1>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
 <ol style="list-style-type: decimal">
-<li><a href="#ref-Dua:2019">Dua and Graff</a> (<a href="#ref-Dua:2019">2017</a>) <br /></li>
-<li><a href="#ref-Cholesterol">Health</a> (<a href="#ref-Cholesterol">2019</a>)</li>
+<li><span class="citation">@Dua:2019</span> <br /></li>
+<li><span class="citation">@Cholesterol</span></li>
 </ol>
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-Dua:2019" class="csl-entry">
-
-<p>Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.” University of California, Irvine, School of Information; Computer Sciences. <a href="http://archive.ics.uci.edu/ml">http://archive.ics.uci.edu/ml</a>.</p>
+<div id="showcasing-plots" class="section level2 tabset">
+<h2 class="tabset">Showcasing plots</h2>
+<div id="tab-1" class="section level3">
+<h3>Tab 1</h3>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="final_project_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="tab-2" class="section level3">
+<h3>Tab 2</h3>
+<p><img src="final_project_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+<div id="tab-3" class="section level3">
+<h3>Tab 3</h3>
+<p><img src="final_project_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>{-}</p>
+</div>
+</div>
 </div>
 
-<div id="ref-Cholesterol" class="csl-entry">
 
-<p>Health, I. N. T. E. G. R. I. S. 2019. “A Guide to Healthy Cholesterol.” <a href="https://integrisok.com/resources/on-your-health/2019/september/a-guide-to-healthy-cholesterol">https://integrisok.com/resources/on-your-health/2019/september/a-guide-to-healthy-cholesterol</a>.</p>
+
+</div>
 </div>
 
 </div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 </body>
 </html>
