@@ -106,9 +106,9 @@ data[, .(
 
 | Cholesterol Level | Minimum Cholesterol Level (mg/dl) | Maximum Cholesterol Level (mg/dl) | Number of Observations |
 |:------------------|----------------------------------:|----------------------------------:|-----------------------:|
-| Desirable         |                          52.63758 |                               199 |                    120 |
-| Borderline High   |                         200.00000 |                               239 |                    183 |
-| High              |                         240.00000 |                               603 |                    291 |
+| Desirable         |                          45.47601 |                               199 |                    119 |
+| Borderline High   |                         200.00000 |                               239 |                    185 |
+| High              |                         240.00000 |                               603 |                    290 |
 
 Cholesterol Level Categories
 
