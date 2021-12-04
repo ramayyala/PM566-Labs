@@ -1,0 +1,9 @@
+name: "my-website"
+navbar:
+  title: "Associatation Analysis bewteen Cholesterol and Heart Disease Patients"
+  left:
+    - text: "Home"
+      href: index.html
+output:
+  html_document:
+    theme: cosmo
