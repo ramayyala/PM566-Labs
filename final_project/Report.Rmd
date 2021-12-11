@@ -450,9 +450,10 @@ s2
 The graph above depicts a bar chart of Location by Cholesterol Level, with the x-axis being the Location from which the samples were obtained from and the y-axis being the count. From the graph, we can see that the majority of each location is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each location, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable. 
 {-}
 
-# Code
-[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd)
-# References
-1. @Dua:2019 <br />
-2. @Cholesterol
+# Code<br />
+[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd)<br />
+# References<br />
+1. Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.” University of California, Irvine,
+School of Information; Computer Sciences. http://archive.ics.uci.edu/ml.<br />
+2. Health, I. N. T. E. G. R. I. S. 2019. “A Guide to Healthy Cholesterol.” https://integrisok.com/resources/onyour-health/2019/september/a-guide-to-healthy-cholesterol.<br />
 

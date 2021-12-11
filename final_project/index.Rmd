@@ -436,10 +436,14 @@ Based on the preliminary results described above, we can conclude that there is 
 
 # Download Full Report
 [Click Here](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/_site/Report.pdf)
+
 # Code
 [Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd)
+
 # References
-1. @Dua:2019 <br />
-2. @Cholesterol
+1. Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.” University of California, Irvine,
+School of Information; Computer Sciences. http://archive.ics.uci.edu/ml.
+2. Health, I. N. T. E. G. R. I. S. 2019. “A Guide to Healthy Cholesterol.” https://integrisok.com/resources/onyour-health/2019/september/a-guide-to-healthy-cholesterol.
+
 
 
