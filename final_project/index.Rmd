@@ -438,7 +438,7 @@ Based on these results described above, we can conclude that there is not a high
 [Click Here](https://github.com/ramayyala/PM566-Labs/raw/master/final_project/_site/Report.pdf)
 
 # Code
-[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd)
+[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/index.Rmd)
 
 # References
 1. Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.” University of California, Irvine,

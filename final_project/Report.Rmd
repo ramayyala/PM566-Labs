@@ -451,7 +451,7 @@ The graph above depicts a bar chart of Location by Cholesterol Level, with the x
 {-}
 
 # Code <br />
-[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd) <br />
+[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/index.Rmd) <br />
 
 # References <br />
 

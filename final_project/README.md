@@ -39,6 +39,6 @@ Our sub priorities in the study is to see whether: <br />
 
 # To see the full study, please click the link below
 [Study](https://ramayyala.github.io/PM566-Labs/)<br />
-[PDF Report] (https://github.com/ramayyala/PM566-Labs/tree/master/final_project/_site/Report.pdf)<br />
+[PDF Report](https://github.com/ramayyala/PM566-Labs/tree/master/final_project/_site/Report.pdf)<br />
 # Code
 [Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd)
