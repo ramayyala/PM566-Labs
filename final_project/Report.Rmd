@@ -416,7 +416,7 @@ The graph above depicts a bar chart of Angiographic Disease Status by Cholestero
 f4
 ```
 <br />
-The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Location, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl), and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, Hungary make up a majority of the samples. However, the median for each location between each disease status differs a bit. In the disease status in which patients had less than 50% diameter narrowing of their coronary arteries, the medians between the locations is about the same. But in the disease status in which patients coronary arteries had greater than 50% diameter narrowing, the median for Hungary in their cholesterol levels is higher than both Cleveland and Long Beach. Overall, the patients from all locations that had greater than 50% diameter narrowing of their coronary arteries had higher cholesterol levels than those patients with less than 50% diameter narrowing of their coronary arteries. From this plot, we can infer that it seems patients with a disease status of having their coronary arteries more than 50% diameter narrowing have higher cholesterol levels than the disease status group with less than 50% coronary artery diameter narrowing. Meaning, that patients with heart disease tended to have higher cholesterol levels than those without. This makes sense since high cholesterol is thought of as a risk factor for heart disease, as high cholesterol will cause fatty deposits to develop in the blood vessels. When these fatty deposits grow, it causes blockages, causing a narrowing of the arteries, making it very hard to pump blood through the arteries, i.e. causing heart disease.  
+The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Location, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl), and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that in both angiographic disease status, Hungary make up a majority of the samples. However, the median for each location between each disease status differs a bit. In the disease status in which patients had less than 50% diameter narrowing of their coronary arteries, the medians between the locations is about the same. But in the disease status in which patients coronary arteries had greater than 50% diameter narrowing, the median for Hungary in their cholesterol levels is higher than both Cleveland and Long Beach. Overall, the patients from all locations that had greater than 50% diameter narrowing of their coronary arteries had higher cholesterol levels than those patients with less than 50% diameter narrowing of their coronary arteries. From this plot, we can infer that it seems patients with a disease status of having their coronary arteries more than 50% diameter narrowing have higher cholesterol levels than the disease status group with less than 50% coronary artery diameter narrowing. Meaning, that patients with heart disease tended to have higher cholesterol levels than those without. This makes sense since high cholesterol is thought of as a risk factor for heart disease, as high cholesterol will cause fatty deposits to develop in the blood vessels. When these fatty deposits grow, it causes blockages, causing a narrowing of the arteries, making it very hard to pump blood through the arteries, i.e. causing heart disease.  
 
 ### Figure 5
 
@@ -431,7 +431,7 @@ The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol 
 
 
 # Conclusion
-Based on the preliminary results described above, we can conclude that there is not a high association between high cholesterol levels and the narrowing of the diameter of heart diseased patients. Based on location, it seems that patients with narrow arteries have a higher cholesterol count, especially in Hungary. However, by Cholesterol category Levels, it seems that there is no real difference in the cholesterol levels between all the cholesterol level categories and the angiographic disease status categories. 
+Based on the results described above, we can conclude that there is not a high association between high cholesterol levels and the narrowing of the diameter of heart diseased patients. Based on location, it seems that patients with narrow arteries have a higher cholesterol count, especially in Hungary. However, by Cholesterol category Levels, it seems that there is no real difference in the cholesterol levels between all the cholesterol level categories and the angiographic disease status categories. 
 
 ### Supplementary Figure 1
 
@@ -450,10 +450,13 @@ s2
 The graph above depicts a bar chart of Location by Cholesterol Level, with the x-axis being the Location from which the samples were obtained from and the y-axis being the count. From the graph, we can see that the majority of each location is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each location, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable. 
 {-}
 
-# Code<br />
-[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd)<br />
-# References<br />
+# Code <br />
+[Availabe Here](https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd) <br />
+
+# References <br />
+
 1. Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.” University of California, Irvine,
-School of Information; Computer Sciences. http://archive.ics.uci.edu/ml.<br />
-2. Health, I. N. T. E. G. R. I. S. 2019. “A Guide to Healthy Cholesterol.” https://integrisok.com/resources/onyour-health/2019/september/a-guide-to-healthy-cholesterol.<br />
+School of Information; Computer Sciences. http://archive.ics.uci.edu/ml. <br />
+
+2. Health, I. N. T. E. G. R. I. S. 2019. “A Guide to Healthy Cholesterol.” https://integrisok.com/resources/onyour-health/2019/september/a-guide-to-healthy-cholesterol. <br />
 
