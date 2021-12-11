@@ -13,7 +13,7 @@
 
 <meta name="date" content="2021-12-10" />
 
-<title>Associatation Analysis bewteen Cholesterol and Heart Disease Patients</title>
+<title>Associatation Analysis bewteen Cholesterol and Heart Disease Patients Report</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,9 +31,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -223,69 +220,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -293,16 +227,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -343,7 +267,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Associatation Analysis bewteen Cholesterol and Heart Disease Patients</h1>
+<h1 class="title toc-ignore">Associatation Analysis bewteen Cholesterol and Heart Disease Patients Report</h1>
 <h4 class="author">Ram Ayyala</h4>
 <h4 class="date">12/10/2021</h4>
 
@@ -361,7 +285,10 @@ div.tocify {
 <div id="questions-to-be-addressed" class="section level1">
 <h1>Questions to be Addressed:</h1>
 <p>For this study, we are mainly interested in <strong>whether high cholesterol is associated with the narrowing of the diameter of the arteries in heart disease patient</strong>.</p>
-<p>Our sub priorities in the study is to see whether: <br /> <strong>1. Do certain locations have a higher instance of cholesterol levels in their patient samples?</strong> <br /> <strong>2. Do certain locations have a higher instance of the narrowing of the diameter of the arteries in their patient samples when compared to others?</strong> <br /> <strong>3. Is there an association between resting blood pressure and cholesterol levels?</strong><br /></p>
+<p>Our sub priorities in the study is to see whether: <br /></p>
+<p><strong>1. Do certain locations have a higher instance of cholesterol levels in their patient samples?</strong> <br /></p>
+<p><strong>2. Do certain locations have a higher instance of the narrowing of the diameter of the arteries in their patient samples when compared to others?</strong> <br /></p>
+<p><strong>3. Is there an association between resting blood pressure and cholesterol levels?</strong><br /></p>
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
@@ -391,8 +318,6 @@ The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol 
 <!--br />
 The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl),and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, patients with high cholesterol make up the majority of the samples. From the last figure we saw that there was a difference in the cholesterol levels and the angiographic disease status. However, with looking at this graphic, we see that the median cholesterol values for each cholesterol level category, are nearly the same between both angiographic disease status categories and in between the cholesterol level categories. This points towards the idea that potentially high cholesterol is not necessarily highly associated with heart disease or in this case, the narrowing of the diameter of the arteries.
 -->
-<div id="showcasing-plots" class="section level2 tabset">
-<h2 class="tabset">Showcasing plots</h2>
 <div id="table-1" class="section level3">
 <h3>Table 1</h3>
 <table>
@@ -414,21 +339,21 @@ The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol 
 <tbody>
 <tr class="odd">
 <td align="left">Desirable</td>
-<td align="right">22.1427</td>
+<td align="right">27.10407</td>
 <td align="right">199</td>
-<td align="right">121</td>
+<td align="right">120</td>
 </tr>
 <tr class="even">
 <td align="left">Borderline High</td>
-<td align="right">200.0000</td>
+<td align="right">200.00000</td>
 <td align="right">239</td>
-<td align="right">184</td>
+<td align="right">185</td>
 </tr>
 <tr class="odd">
 <td align="left">High</td>
-<td align="right">240.0000</td>
+<td align="right">240.00000</td>
 <td align="right">603</td>
-<td align="right">287</td>
+<td align="right">289</td>
 </tr>
 </tbody>
 </table>
@@ -436,40 +361,46 @@ The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol 
 <div id="figure-1" class="section level3">
 <h3>Figure 1</h3>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" width="672" /> <br /> The figure above is a stacked histogram that displays the distribution of Cholesterol by Angiographic Disease Status. The figure displays the distribution of Cholesterol by Angiographic Disease Status categories, with the x-axis being the Cholesterol values and the y-axis being the count. From this stacked histogram, we can see that both categories for Angiographic Disease Status are slightly skewed right. Moreover, from this plot, we can see that the majority of the data set is made up of individuals in which less than 50% of their coronary arteries are narrowing, meaning they probably do not suffer from heart disease, while only a subset portion of the data set are individuals with greater than 50% of their coronary arteries being narrowed, i.e. they probably have heart disease.</p>
+<p><img src="Report_files/figure-html/unnamed-chunk-23-1.png" width="672" /> <br /> The figure above is a stacked histogram that displays the distribution of Cholesterol by Angiographic Disease Status. The figure displays the distribution of Cholesterol by Angiographic Disease Status categories, with the x-axis being the Cholesterol values and the y-axis being the count. From this stacked histogram, we can see that both categories for Angiographic Disease Status are slightly skewed right. Moreover, from this plot, we can see that the majority of the data set is made up of individuals in which less than 50% of their coronary arteries are narrowing, meaning they probably do not suffer from heart disease, while only a subset portion of the data set are individuals with greater than 50% of their coronary arteries being narrowed, i.e. they probably have heart disease.</p>
 </div>
 <div id="figure-2" class="section level3">
 <h3>Figure 2</h3>
-<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" width="672" /> <br /> The graph above depicts a boxplot of Normalized Cholesterol (mg/dl) by Location, with the x-axis being the Location from which the samples were obtained from and the y-axis being the the normalized cholesterol levels. From the graph, we can see that the median normalized cholesterol for Hungary and Cleveland are quite similar, while the Long Beach dataset seems to have a much lower median than the rest. Moreover, it seems that the distributions of Cleveland and Long Beach are quite similar, while Hungary seems to have a slightly larger distribution.</p>
+<p><img src="Report_files/figure-html/unnamed-chunk-24-1.png" width="672" /> <br /> The graph above depicts a boxplot of Normalized Cholesterol (mg/dl) by Location, with the x-axis being the Location from which the samples were obtained from and the y-axis being the the normalized cholesterol levels. From the graph, we can see that the median normalized cholesterol for Hungary and Cleveland are quite similar, while the Long Beach dataset seems to have a much lower median than the rest. Moreover, it seems that the distributions of Cleveland and Long Beach are quite similar, while Hungary seems to have a slightly larger distribution.</p>
 </div>
 <div id="figure-3" class="section level3">
 <h3>Figure 3</h3>
-<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" width="672" /> <br /> The graph above depicts a bar chart of Angiographic Disease Status by Cholesterol Level, with the x-axis being the the angiographic disease status of the samples and the y-axis being the count. From the graph, we can see that the majority of disease status is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each angiographic disease status, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable.</p>
+<p><img src="Report_files/figure-html/unnamed-chunk-25-1.png" width="672" /> <br /> The graph above depicts a bar chart of Angiographic Disease Status by Cholesterol Level, with the x-axis being the the angiographic disease status of the samples and the y-axis being the count. From the graph, we can see that the majority of disease status is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each angiographic disease status, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable.</p>
 </div>
 <div id="figure-4" class="section level3">
 <h3>Figure 4</h3>
-<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Location, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl), and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, Hungary make up a majority of the samples. However, the median for each location between each disease status differs a bit. In the disease status in which patients had less than 50% diameter narrowing of their coronary arteries, the medians between the locations is about the same. But in the disease status in which patients coronary arteries had greater than 50% diameter narrowing, the median for Hungary in their cholesterol levels is higher than both Cleveland and Long Beach. Overall, the patients from all locations that had greater than 50% diameter narrowing of their coronary arteries had higher cholesterol levels than those patients with less than 50% diameter narrowing of their coronary arteries. From this plot, we can infer that it seems patients with a disease status of having their coronary arteries more than 50% diameter narrowing have higher cholesterol levels than the disease status group with less than 50% coronary artery diameter narrowing. Meaning, that patients with heart disease tended to have higher cholesterol levels than those without. This makes sense since high cholesterol is thought of as a risk factor for heart disease, as high cholesterol will cause fatty deposits to develop in the blood vessels. When these fatty deposits grow, it causes blockages, causing a narrowing of the arteries, making it very hard to pump blood through the arteries, i.e. causing heart disease.</p>
+<p><img src="Report_files/figure-html/unnamed-chunk-26-1.png" width="672" /> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Location, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl), and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, Hungary make up a majority of the samples. However, the median for each location between each disease status differs a bit. In the disease status in which patients had less than 50% diameter narrowing of their coronary arteries, the medians between the locations is about the same. But in the disease status in which patients coronary arteries had greater than 50% diameter narrowing, the median for Hungary in their cholesterol levels is higher than both Cleveland and Long Beach. Overall, the patients from all locations that had greater than 50% diameter narrowing of their coronary arteries had higher cholesterol levels than those patients with less than 50% diameter narrowing of their coronary arteries. From this plot, we can infer that it seems patients with a disease status of having their coronary arteries more than 50% diameter narrowing have higher cholesterol levels than the disease status group with less than 50% coronary artery diameter narrowing. Meaning, that patients with heart disease tended to have higher cholesterol levels than those without. This makes sense since high cholesterol is thought of as a risk factor for heart disease, as high cholesterol will cause fatty deposits to develop in the blood vessels. When these fatty deposits grow, it causes blockages, causing a narrowing of the arteries, making it very hard to pump blood through the arteries, i.e. causing heart disease.</p>
 </div>
 <div id="figure-5" class="section level3">
 <h3>Figure 5</h3>
-<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" width="672" /> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl),and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, patients with high cholesterol make up the majority of the samples. From the last figure we saw that there was a difference in the cholesterol levels and the angiographic disease status. However, with looking at this graphic, we see that the median cholesterol values for each cholesterol level category, are nearly the same between both angiographic disease status categories and in between the cholesterol level categories. This points towards the idea that potentially high cholesterol is not necessarily highly associated with heart disease or in this case, the narrowing of the diameter of the arteries.</p>
+<p><img src="Report_files/figure-html/unnamed-chunk-27-1.png" width="672" /> <br /> The graph above depicts a boxplot of Angiographic Disease Status vs Cholesterol (mg/dl) by Cholesterol Level, with the x-axis being the Angiographic Disease Status and the y-axis being the Cholesterol (mg/dl),and a red reference line for the 240 (mg/dl) Cholesterol level mark. From the graph, we can see that the in both angiographic disease status, patients with high cholesterol make up the majority of the samples. From the last figure we saw that there was a difference in the cholesterol levels and the angiographic disease status. However, with looking at this graphic, we see that the median cholesterol values for each cholesterol level category, are nearly the same between both angiographic disease status categories and in between the cholesterol level categories. This points towards the idea that potentially high cholesterol is not necessarily highly associated with heart disease or in this case, the narrowing of the diameter of the arteries.</p>
 <p>{-}</p>
-</div>
 </div>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
 <p>Based on the preliminary results described above, we can conclude that there is not a high association between high cholesterol levels and the narrowing of the diameter of heart diseased patients. Based on location, it seems that patients with narrow arteries have a higher cholesterol count, especially in Hungary. However, by Cholesterol category Levels, it seems that there is no real difference in the cholesterol levels between all the cholesterol level categories and the angiographic disease status categories.</p>
+<div id="supplementary-figure-1" class="section level3">
+<h3>Supplementary Figure 1</h3>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Report_files/figure-html/unnamed-chunk-28-1.png" width="672" /> <br /> The figure above contains a scatter plot that details the relationship between Cholesterol Levels and Resting blood pressure for each location in the data set, with the x-axis being the Cholesterol Levels (mg/dl) and the y-axis being the Resting Blood pressure values (mmHg). Within each scatter plot lies a regression line. From the figure above, it is evident that across all of the locations, Cholesterol seems to have a positive association with Resting Blood Pressure.</p>
 </div>
-<div id="download-full-report" class="section level1">
-<h1>Download Full Report</h1>
-<p><a href="https://github.com/ramayyala/PM566-Labs/raw/master/final_project/_site/Report.pdf">Click Here</a> # Code <a href="https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd">Availabe Here</a> # References 1. <span class="citation">@Dua:2019</span> <br /> 2. <span class="citation">@Cholesterol</span></p>
+<div id="supplementary-figure-2" class="section level3">
+<h3>Supplementary Figure 2</h3>
+<p><img src="Report_files/figure-html/unnamed-chunk-29-1.png" width="672" /> <br /> The graph above depicts a bar chart of Location by Cholesterol Level, with the x-axis being the Location from which the samples were obtained from and the y-axis being the count. From the graph, we can see that the majority of each location is made up of individuals with high cholesterol, while a very small portion have the desirable level of cholesterol. Moreover, for each location, the order of the cholesterol level category in terms of count proportion seems to be maintained in this order from largest to smallest: High, Borderline High, and Desirable. {-}</p>
+</div>
+</div>
+<div id="code" class="section level1">
+<h1>Code</h1>
+<p><a href="https://github.com/ramayyala/PM566-Labs/blob/master/final_project/final_project.Rmd">Availabe Here</a> # References 1. <span class="citation">@Dua:2019</span> <br /> 2. <span class="citation">@Cholesterol</span></p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -502,35 +433,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

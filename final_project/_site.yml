@@ -4,6 +4,14 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Supplementary"
+      href: supp.html
+    - text: "Github"
+      href: https://github.com/ramayyala/PM566-Labs/tree/master/final_project
+    - text: "LinkedIn"
+      href: https://www.linkedin.com/in/ram-ayyala-429181123/
+      
+    
 output:
   html_document:
     theme: cosmo
